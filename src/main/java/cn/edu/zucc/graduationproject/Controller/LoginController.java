@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     @RequestMapping(value = "/login")
     public String login(ModelMap map){
-        String hello="helloword i'm cjc-cjc111";
+        String hello="helloword i'm cjc-cjc11111111";
         map.put("hello",hello);
         return "login";
     }
