@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class productService {
+public class ProductService {
     @Autowired
     ProductApi productApi;
     public List<OItem> getallproduct(){

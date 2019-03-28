@@ -5,6 +5,7 @@ import cn.edu.zucc.graduationproject.Service.loginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,22 +46,26 @@ public class LoginController {
     @Autowired
     loginService loginService;
     @RequestMapping("/loginPost")
-    public String loginPost(String account,String password, HttpSession session,Model map) {
+    public String loginPost(String account, String password, HttpSession session, ModelMap map) {
         String user= (String) session.getAttribute("account");
-        if (user!=null&&password==null&&account==null) {
-            logger.info("用户：" + user + "已登录");
-            return "welcome";
+        if (password==null&&account==null) {
+            if (user!=null) {
+                logger.info("用户：" + user + "已登录");
+                return "welcome";
+            }else{
+                return "login";
+            }
         }else {
             String checkresult = loginService.checkpassword(password, account);
             if (!checkresult.equals("登录成功")) {
-                map.addAttribute("success", false);
-                map.addAttribute("message", checkresult);
+                map.put("success", false);
+                map.put("message", checkresult);
                 return "login";
             } else {
                 // 设置session
                 session.setAttribute("account", account);
-                map.addAttribute("success", true);
-                map.addAttribute("message", "登录成功");
+                map.put("success", true);
+                map.put("message", "登录成功");
                 logger.info("用户：" + account + "登录成功");
                 return "welcome";
             }
