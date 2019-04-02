@@ -11,7 +11,7 @@ public class ElemeConfig {
     public final static String SANDBOX_STORE_PASS="";//对应沙箱环境店铺密码
     public final static String SANDBOX_REDIRECT_URL="http://61.153.7.60:8080/test/elm?method=auth_back";//对应沙箱环境回调地址URL
 
-    public final static String code="97991549f977b9fa68ffeae601659b77";
+    public final static String code="9c814f950a6beda380aa8d374a2af017";
 
     //正式环境参数 暂时么有
 }

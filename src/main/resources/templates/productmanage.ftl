@@ -1,10 +1,12 @@
 <html>
 <head>
-    <title>欢迎登录</title>
+    <title>商品详情</title>
 </head>
 <body>
-<h1>欢迎登录</h1>
 <div>
-    ${productmanage}
+    <#list productmanage as map>
+        ${map.description}
+    </#list>
+
 </div>
 </body>

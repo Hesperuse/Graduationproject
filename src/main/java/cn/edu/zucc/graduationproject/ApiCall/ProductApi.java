@@ -9,12 +9,16 @@ import eleme.openapi.sdk.api.service.ProductService;
 import eleme.openapi.sdk.oauth.response.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ProductApi {
     private final static Logger logger = LoggerFactory.getLogger(ProductApi.class);
+
+    @Autowired
+    ElmUtil elmUtil;
 
     /**
      * 获取所有商品信息
@@ -23,7 +27,7 @@ public class ProductApi {
      */
     public List<OItem> getallproduct(){
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
-        Token token=ElmUtil.getToken(ElemeConfig.IS_SANDBOX,ElemeConfig.SANDBOX_APP_KEY,ElemeConfig.SANDBOX_APP_SECRET,ElemeConfig.SANDBOX_REDIRECT_URL,ElemeConfig.code);
+        Token token=elmUtil.gettokenbymysql();
         ProductService productService = new ProductService(config,token);
         QueryPage queryPage = new QueryPage();
         queryPage.setShopId(ElemeConfig.SANDBOX_STORE_ID);

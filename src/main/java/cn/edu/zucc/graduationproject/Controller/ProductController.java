@@ -37,7 +37,7 @@ public class ProductController {
 //
 //            }
 //        }
-        map.put("productmanage", GsonHelper.toJson(productlist));
+        map.put("productmanage",productlist);
         return "productmanage";
     }
 }

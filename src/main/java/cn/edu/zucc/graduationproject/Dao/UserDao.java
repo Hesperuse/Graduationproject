@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface  UserDao extends JpaRepository<User, Integer> {
+public interface  UserDao extends JpaRepository<User, String> {
 //    public User findById(String user);
 //
 //    public User save(User user);
