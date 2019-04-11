@@ -36,7 +36,9 @@ public class LoginController {
     }
 
     @RequestMapping("/welcome")
-    public String welcome(HttpServletRequest request){
+    public String welcome(HttpServletRequest request,HttpSession session,ModelMap map){
+        String user= (String) session.getAttribute("account");
+        map.put("username",user);
         return "welcome";
     }
 
@@ -51,6 +53,7 @@ public class LoginController {
         if (password==null&&account==null) {
             if (user!=null) {
                 logger.info("用户：" + user + "已登录");
+                map.put("username",user);
                 return "welcome";
             }else{
                 return "login";
@@ -67,6 +70,7 @@ public class LoginController {
                 map.put("success", true);
                 map.put("message", "登录成功");
                 logger.info("用户：" + account + "登录成功");
+                map.put("username",account);
                 return "welcome";
             }
         }

@@ -1,18 +1,17 @@
 package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.Service.ProductService;
-import cn.edu.zucc.graduationproject.util.GsonHelper;
 import eleme.openapi.sdk.api.entity.product.OItem;
+import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ProductController {
@@ -40,4 +39,15 @@ public class ProductController {
         map.put("productmanage",productlist);
         return "productmanage";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/productmanage/deletepro")
+    public void  deleteproduct(String pid){
+        try {
+            productService.deleteproduct(pid);
+        } catch (ServiceException e) {
+            logger.warn("商品删除失败",e);
+        }
+    }
+
 }

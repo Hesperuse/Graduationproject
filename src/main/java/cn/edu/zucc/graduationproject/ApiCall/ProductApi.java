@@ -32,7 +32,7 @@ public class ProductApi {
         QueryPage queryPage = new QueryPage();
         queryPage.setShopId(ElemeConfig.SANDBOX_STORE_ID);
         queryPage.setOffset(0L);
-        queryPage.setLimit(10L);
+        queryPage.setLimit(20L);
         List<OItem> productlist=null;
         try {
             productlist = productService.queryItemByPage(queryPage);
@@ -40,6 +40,13 @@ public class ProductApi {
             logger.warn("获取所有商品信息出错",e);
         }
         return productlist;
+    }
+
+    public void deleteproductbyid(String id) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config,token);
+        productService.invalidItem(Long.parseLong(id));
     }
 
 
