@@ -1,6 +1,7 @@
 package cn.edu.zucc.graduationproject.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class ElmOrderController {
      * 饿了么授权回调在此处响应，主要是获取授权码code
      */
     @GetMapping("/elm")
-    public Object doGet(HttpServletRequest request, HttpServletResponse response, Model map) throws ServletException, IOException {
+    public Object doGet(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws ServletException, IOException {
 
 //        log.info("[请求错误]");
         String method=request.getParameter("method");
@@ -25,10 +26,10 @@ public class ElmOrderController {
         if("auth_back".equals(method)){
             String code=request.getParameter("code");
             String state=request.getParameter("state");
-            map.addAttribute("code",code);
+            map.put("code",code);
             System.out.println(code);
         }
-        return "welcome";
+        return "code";
 
     }
 }

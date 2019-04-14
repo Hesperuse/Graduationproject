@@ -48,7 +48,7 @@ MAIN SIDEBAR MENU
                 <#--</ul>-->
             </li>
             <li class="sub-menu">
-                <a id= "godscontroller" href="/ingredientmanage" >
+                <a id= "godscontroller" href="/Ingredient" >
                     <i class="fa fa-cogs"></i>
                     <span>配料管理</span>
                 </a>

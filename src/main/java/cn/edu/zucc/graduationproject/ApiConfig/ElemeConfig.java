@@ -9,9 +9,9 @@ public class ElemeConfig {
     public final static long SANDBOX_STORE_ID=170361525;//对应沙箱环境店铺ID
     public final static String SANDBOX_STORE_URL="";//对应沙箱环境店铺URL
     public final static String SANDBOX_STORE_PASS="";//对应沙箱环境店铺密码
-    public final static String SANDBOX_REDIRECT_URL="http://61.153.7.60:8080/test/elm?method=auth_back";//对应沙箱环境回调地址URL
+    public final static String SANDBOX_REDIRECT_URL="http://122.235.96.252:8080/test/elm?method=auth_back";//对应沙箱环境回调地址URL
 
-    public final static String code="cb337bbdd90493019495d169cea45c93";
+    public final static String code="9bec53b59850e05d4aae0daea35d551b";
 
     //正式环境参数 暂时么有
 }

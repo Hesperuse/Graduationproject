@@ -76,7 +76,7 @@ public class ElmUtil {
             long oldtime=token.getDate().getTime();
             long timedifference=(nowtime-oldtime)/1000;
             long expires=token.getExpires();
-            if (timedifference>expires){
+            if (timedifference>=expires){
                 etoken=getRefreshToken(ElemeConfig.IS_SANDBOX,ElemeConfig.SANDBOX_APP_KEY,ElemeConfig.SANDBOX_APP_SECRET,token.getRefreshToken());
                 try {
                     tokenDao.queryToken(etoken.getAccessToken(), etoken.getTokenType(), etoken.getExpires(), etoken.getRefreshToken(), new Date());
