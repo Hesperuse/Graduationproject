@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>饿了么餐饮管理系统 - 菜品管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -82,6 +82,14 @@
                     <#--</dl>-->
                 </li>
                 <li class="layui-nav-item">
+                    <a href="/ordermanager">订单管理</a>
+                    <#--<dl class="layui-nav-child">-->
+                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
+                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
+                    <#--<dd><a href="">超链接</a></dd>-->
+                    <#--</dl>-->
+                </li>
+                <li class="layui-nav-item">
                     <a href="/productmanage">菜品管理</a>
                     <#--<dl class="layui-nav-child">-->
                     <#--<dd><a href="javascript:;">列表一</a></dd>-->
@@ -98,7 +106,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                 <legend>菜品管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
@@ -114,7 +122,8 @@
                         <th style="width: 100px">菜品id</th>
                         <th>菜品名称</th>
                         <th>菜品简介</th>
-                        <th>库存</th>
+                        <th>月售</th>
+                        <th>菜品状态</th>
                         <th>选项</th>
                     </tr>
                     </thead>
@@ -124,7 +133,8 @@
                             <td style="width: 100px">${map.id}</td>
                             <td><img src="${map.imgurl!""}" style="height: 40px;width: 40px">${map.name}</td>
                             <td>${map.description}</td>
-                            <td>Due</td>
+                            <td>${map.recentPopularity}</td>
+                            <#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>
                             <td>
                                     <a href="/productupdate?pid=${map.id}"><button class="layui-btn layui-btn-sm">编辑</button></a>
                                     <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro(${map.id})">删除</button>

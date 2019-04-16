@@ -1,91 +1,177 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009" media="all">
+    <style type="text/css">
+        .container{
+            width: 420px;
+            height: 320px;
+            min-height: 320px;
+            max-height: 320px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            padding: 20px;
+            z-index: 130;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+            font-size: 16px;
+        }
+        .close{
+            background-color: white;
+            border: none;
+            font-size: 18px;
+            margin-left: 410px;
+            margin-top: -10px;
+        }
 
-    <title>欢迎来到饿了么商家管理系统</title>
+        .layui-input{
+            border-radius: 5px;
+            width: 300px;
+            height: 40px;
+            font-size: 15px;
+        }
+        .layui-form-item{
+            margin-left: -20px;
+        }
+        #logoid{
+            margin-top: -16px;
+            padding-left:150px;
+            padding-bottom: 15px;
+        }
+        .layui-btn{
+            margin-left: -50px;
+            border-radius: 5px;
+            width: 350px;
+            height: 40px;
+            font-size: 15px;
+        }
+        .verity{
+            width: 120px;
+        }
+        .font-set{
+            font-size: 13px;
+            text-decoration: none;
+            margin-left: 120px;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
 
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
-    <!-- Custom styles for this template -->
-    <link href="../assets/css/style.css" rel="stylesheet">
-    <link href="../assets/css/style-responsive.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <![endif]-->
+    </style>
 </head>
-
 <body>
-
-<!-- **********************************************************************************************************************************************************
-MAIN CONTENT
-*********************************************************************************************************************************************************** -->
-
-<div id="login-page">
+<form class="layui-form" action="/loginPost" method="post">
     <div class="container">
-
-        <form class="form-login" action="/loginPost"  method="post">
-            <h2 class="form-login-heading">sign in now</h2>
-            <div class="login-wrap">
-                <input type="text" class="form-control" name="account" placeholder="User ID" autofocus>
-                <br>
-                <input type="password" class="form-control" name="password" placeholder="Password">
-                <label class="checkbox">
-		                <span class="pull-right">
-		                    <p style="color: red">${message!""}</p>
-
-		                </span>
-                </label>
-                <button class="btn btn-theme btn-block" href="index.html" type="submit" value="SIGN IN"><i class="fa fa-lock"></i> SIGN IN</button>
-                <hr>
-
+        <button class="close" title="关闭">X</button>
+        <div class="layui-form-mid layui-word-aux">
+            <p id="logoid" height="35">饿了么商家管理系统</p>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="account" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
             </div>
-
-            <!-- Modal -->
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Forgot Password ?</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Enter your e-mail address below to reset your password.</p>
-                            <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-
-                        </div>
-                        <div class="modal-footer">
-                            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                            <button class="btn btn-theme" type="button">Submit</button>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密 &nbsp;&nbsp;码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
-            <!-- modal -->
+            <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
+        </div>
+        <#--<div class="layui-form-item">-->
+            <#--<label class="layui-form-label">验证码</label>-->
+            <#--<div class="layui-input-inline">-->
+                <#--<input type="text" name="title" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">-->
+            <#--</div>-->
+            <#--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
 
-        </form>
+        <#--</div>-->
+        <!-- 			  <div class="layui-form-item">
+                            <label class="layui-form-label">记住密码</label>
+                            <div class="layui-input-block">
+                              <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
+                            </div>
+                      </div> -->
 
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">登陆</button>
+            </div>
+        </div>
+        <a href="" class="font-set">忘记密码?</a>  <a href="" class="font-set">立即注册</a>
     </div>
-</div>
-
-<!-- js placed at the end of the document so the pages load faster -->
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-
-<!--BACKSTRETCH-->
-<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-<script type="text/javascript" src="../assets/js/jquery.backstretch.min.js"></script>
+</form>
+<script src="../layui/layui.js?t=1554901098009" charset="utf-8"></script>
 <script>
-    $.backstretch("../assets/img/login-bg.jpg", {speed: 500});
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        /* laydate.render({
+           elem: '#date'
+         });
+         laydate.render({
+           elem: '#date1'
+         });
+
+         //创建一个编辑器
+         var editIndex = layedit.build('LAY_demo_editor');
+
+         //自定义验证规则
+         form.verify({
+           title: function(value){
+             if(value.length < 5){
+               return '标题至少得5个字符啊';
+             }
+           }
+           ,pass: [
+             /^[\S]{6,12}$/
+             ,'密码必须6到12位，且不能出现空格'
+           ]
+           ,content: function(value){
+             layedit.sync(editIndex);
+           }
+         });
+
+         //监听指定开关
+         form.on('switch(switchTest)', function(data){
+           layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+             offset: '6px'
+           });
+           layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+         });*/
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单初始赋值
+        /* form.val('example', {
+           "username": "贤心" // "name": "value"
+           ,"password": "123456"
+           ,"interest": 1
+           ,"like[write]": true //复选框选中状态
+           ,"close": true //开关状态
+           ,"sex": "女"
+           ,"desc": "我爱 layui"
+         })*/
+
+
+    });
 </script>
 </body>
 </html>

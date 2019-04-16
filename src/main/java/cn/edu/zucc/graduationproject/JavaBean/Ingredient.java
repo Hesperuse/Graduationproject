@@ -14,6 +14,16 @@ public class Ingredient {
     private String ingredientname;
     @Column(name = "ingredientnum")
     private int ingredientnum;
+    @Column(name = "ingredientmaxnum")
+    private int ingredientmaxnum;
+
+    public int getIngredientmaxnum() {
+        return ingredientmaxnum;
+    }
+
+    public void setIngredientmaxnum(int ingredientmaxnum) {
+        this.ingredientmaxnum = ingredientmaxnum;
+    }
 
     public String getIngredientid() {
         return ingredientid;

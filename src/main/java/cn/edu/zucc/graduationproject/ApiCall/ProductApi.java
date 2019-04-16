@@ -2,8 +2,11 @@ package cn.edu.zucc.graduationproject.ApiCall;
 
 import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
 import cn.edu.zucc.graduationproject.util.ElmUtil;
+import eleme.openapi.sdk.api.entity.product.OCategory;
 import eleme.openapi.sdk.api.entity.product.OItem;
+import eleme.openapi.sdk.api.entity.product.OSpec;
 import eleme.openapi.sdk.api.entity.product.QueryPage;
+import eleme.openapi.sdk.api.enumeration.product.OItemCreateProperty;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.ProductService;
 import eleme.openapi.sdk.oauth.response.Token;
@@ -12,7 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class ProductApi {
     private final static Logger logger = LoggerFactory.getLogger(ProductApi.class);
@@ -49,6 +56,30 @@ public class ProductApi {
         productService.invalidItem(Long.parseLong(id));
     }
 
+    public List<OCategory> getallCategory() throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        List<OCategory> categorylist=productService.getShopCategories(ElemeConfig.SANDBOX_STORE_ID);
+        return categorylist;
+    }
 
-
+    public void createproduct(long danhang,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        Map<OItemCreateProperty,Object> properties = new HashMap<OItemCreateProperty,Object>();
+        properties.put(OItemCreateProperty.name,proname);
+        properties.put(OItemCreateProperty.description,promsg);
+//        properties.put(OItemCreateProperty.imageHash,"3077080f760e7bf0fc985e23dd3e36e2");
+        List<OSpec> oSpecs = new ArrayList<OSpec>();
+        OSpec oSpec = new OSpec();
+        oSpec.setName("份");
+        oSpec.setPrice(price);
+        oSpec.setStock(stock);
+        oSpec.setMaxStock(maxstock);
+        oSpecs.add(oSpec);
+        properties.put(OItemCreateProperty.specs,oSpecs);
+        productService.createItem(26940000135L, properties);
+    }
 }

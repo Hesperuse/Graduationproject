@@ -1,7 +1,5 @@
 package cn.edu.zucc.graduationproject;
-import cn.edu.zucc.graduationproject.Service.IngredientService;
 import cn.edu.zucc.graduationproject.util.ElmUtil;
-import cn.edu.zucc.graduationproject.util.GsonHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

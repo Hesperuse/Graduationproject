@@ -5,7 +5,6 @@ import cn.edu.zucc.graduationproject.Dao.TokenDao;
 import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
-import org.hibernate.jdbc.Expectation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,14 @@ public class ElmUtil {
             if (timedifference>=expires){
                 etoken=getRefreshToken(ElemeConfig.IS_SANDBOX,ElemeConfig.SANDBOX_APP_KEY,ElemeConfig.SANDBOX_APP_SECRET,token.getRefreshToken());
                 try {
-                    tokenDao.queryToken(etoken.getAccessToken(), etoken.getTokenType(), etoken.getExpires(), etoken.getRefreshToken(), new Date());
+                    cn.edu.zucc.graduationproject.JavaBean.Token tokenmsg=new cn.edu.zucc.graduationproject.JavaBean.Token();
+                    tokenmsg.setTokenType(etoken.getTokenType());
+                    tokenmsg.setDate(new Date());
+                    tokenmsg.setRefreshToken(etoken.getRefreshToken());
+                    tokenmsg.setExpires(etoken.getExpires());
+                    tokenmsg.setAccessToken(etoken.getAccessToken());
+                    tokenDao.deleteAll();
+                    tokenDao.save(tokenmsg);
                 }catch(Exception e){
                     logger.warn("token修改失败",e);
                 }

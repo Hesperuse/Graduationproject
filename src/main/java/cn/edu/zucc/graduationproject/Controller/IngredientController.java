@@ -14,7 +14,7 @@ public class IngredientController {
     IngredientService ingredientService;
     @RequestMapping(value = "/Ingredient")
     public String getallIngredient(ModelMap map){
-        map.put("list", GsonHelper.toJson(ingredientService.getalligd()));
+        map.put("ingredientlist", ingredientService.getalligd());
         return "ingredientmanager";
     }
 }

@@ -1,5 +1,6 @@
 package cn.edu.zucc.graduationproject.Controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@RestController
+@Controller
 @RequestMapping("test")
 public class ElmOrderController {
     /**
@@ -26,7 +27,7 @@ public class ElmOrderController {
         if("auth_back".equals(method)){
             String code=request.getParameter("code");
             String state=request.getParameter("state");
-            map.put("code",code);
+            map.put("codenum",code);
             System.out.println(code);
         }
         return "code";

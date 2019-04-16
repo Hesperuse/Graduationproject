@@ -1,7 +1,9 @@
 package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.Service.ProductService;
+import eleme.openapi.sdk.api.entity.product.OCategory;
 import eleme.openapi.sdk.api.entity.product.OItem;
+import eleme.openapi.sdk.api.entity.product.OSpec;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,14 @@ public class ProductController {
                 productmsg.put("name",product.getName());
                 productmsg.put("imgurl",product.getImageUrl());
                 productmsg.put("description",product.getDescription());
-                productmsg.put("isValid",product.getIsValid());
+                List<OSpec> specslist=product.getSpecs();
+
+                if (specslist.get(0).getOnShelf()==1){
+                    productmsg.put("isValid","已上架");
+                }else {
+                    productmsg.put("isValid","已下架");
+                }
+                productmsg.put("recentPopularity",product.getRecentPopularity());
                 productmsg.put("name",product.getName());
                 productmsglist.add(productmsg);
             }
@@ -58,12 +67,28 @@ public class ProductController {
 
     @RequestMapping(value = "/productupdate")
     public String toupdateproduct(String pid,ModelMap map){
-        logger.info("yijinru");
         if (pid!=null){
             map.put("pid",pid);
         }
-       return "productupdate";
+        try {
+            List<OCategory> categories=productService.getallCategories();
+            map.put("categories",categories);
+        } catch (ServiceException e) {
+            logger.warn("获取商品分类出错",e);
+        }
+        return "productupdate";
     }
 
+    @RequestMapping(value = "/productupdate/update")
+    public String updateproduct(String danhang,String proname,String promsg,String price,String stock,String maxstock,ModelMap map){
+//        logger.info(danhang+"::"+proname+"::"+promsg+"::"+price+"::"+stock+"::"+maxstock);
+        try {
+            logger.info("asdasdadad");
+            productService.createproduct(danhang,proname,promsg,price,stock,maxstock);
+        } catch (ServiceException e) {
+            logger.warn("添加商品数据出错",e);
+        }
+        return "productupdate";
+    }
 
 }

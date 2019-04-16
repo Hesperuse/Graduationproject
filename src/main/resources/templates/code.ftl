@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-code=${code}
+code=${codenum}
 </div>
 </body>
 </html>

@@ -18,19 +18,19 @@
     <div class="layui-header">
         <div class="layui-logo">饿了么餐饮管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <#--<ul class="layui-nav layui-layout-left">-->
-            <#--<li class="layui-nav-item"><a href="">控制台</a></li>-->
-            <#--<li class="layui-nav-item"><a href="">商品管理</a></li>-->
-            <#--<li class="layui-nav-item"><a href="">用户</a></li>-->
-            <#--<li class="layui-nav-item">-->
-                <#--<a href="javascript:;">其它系统</a>-->
-                <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="">邮件管理</a></dd>-->
-                    <#--<dd><a href="">消息管理</a></dd>-->
-                    <#--<dd><a href="">授权管理</a></dd>-->
-                <#--</dl>-->
-            <#--</li>-->
-        <#--</ul>-->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -47,23 +47,15 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
+                    <a class="" href="javascript:;">首页</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
+                    <a href="/ordermanager">订单管理</a>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item">
+                    <a href="/productmanage">菜品管理</a>
+                </li>
+                <li class="layui-nav-item"><a href="/Ingredient">配料管理</a></li>
                 <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
@@ -72,28 +64,65 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            内容主体区域
-
-            <br><br>
-
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                <legend>菜品信息管理</legend>
+            </fieldset>
             <blockquote class="layui-elem-quote">
-                注意：该页面只是简单的后台布局示例，并不是一整套后台系统方案，您可以关注 layui 官方提供后台模板解决方案：
-                <a href="https://www.layui.com/admin/" target="_blank" class="layui-btn layui-btn-danger">layuiAdmin</a>
+                <form class="layui-form" action="/productupdate/update">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">单行选择框</label>
+                            <div class="layui-input-block">
+                                <select name="danhang" lay-filter="aihao">
+                                    <#list categories as value>
+                                    <option value="${value.id}">${value.name!"分类1"}</option>
+                                    </#list>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">菜品名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">菜品描述</label>
+                        <div class="layui-input-block">
+                            <textarea name="promsg" placeholder="请输入菜品描述" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">价格</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入价格，单位（元）" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">菜品库存</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="stock" lay-verify="title" autocomplete="off" placeholder="请输入库存" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">最大库存</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="maxstock" lay-verify="title" autocomplete="off" placeholder="请输入最大库存" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
             </blockquote>
-
-            <blockquote class="layui-elem-quote">
-                layui 之所以赢得如此多人的青睐，更多是在于它“前后台系统通吃”的能力。既可编织出绚丽的前台页面，又可满足繁杂的后台功能需求。
-                <br>layui 后台布局， 致力于让每一位开发者都能轻松搭建自己的后台模板。
-            </blockquote>
-
-            <a href="/doc/element/layout.html#admin" target="_blank" class="layui-btn layui-btn-lg">获取该布局代码</a>
-
-            <br><br><br><br>
-
-
-
-
-            下面是充数内容，为的是出现滚动条<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>
         </div>
     </div>
 
@@ -102,7 +131,78 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="../layui.js?t=1554901098009" charset="utf-8"></script>
+<script src="../layui/layui.js?t=1554901098009" charset="utf-8"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+</script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<#--<script>-->
+<#--layui.use(['form', 'layedit', 'laydate'], function(){-->
+<#--var form = layui.form-->
+<#--,layer = layui.layer-->
+<#--,layedit = layui.layedit-->
+<#--,laydate = layui.laydate;-->
+
+<#--//日期-->
+<#--laydate.render({-->
+<#--elem: '#date'-->
+<#--});-->
+<#--laydate.render({-->
+<#--elem: '#date1'-->
+<#--});-->
+
+<#--//创建一个编辑器-->
+<#--var editIndex = layedit.build('LAY_demo_editor');-->
+
+<#--//自定义验证规则-->
+<#--form.verify({-->
+<#--title: function(value){-->
+<#--if(value.length < 5){-->
+<#--return '标题至少得5个字符啊';-->
+<#--}-->
+<#--}-->
+<#--,pass: [-->
+<#--/^[\S]{6,12}$/-->
+<#--,'密码必须6到12位，且不能出现空格'-->
+<#--]-->
+<#--,content: function(value){-->
+<#--layedit.sync(editIndex);-->
+<#--}-->
+<#--});-->
+
+<#--//监听指定开关-->
+<#--form.on('switch(switchTest)', function(data){-->
+<#--layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {-->
+<#--offset: '6px'-->
+<#--});-->
+<#--layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)-->
+<#--});-->
+
+<#--//监听提交-->
+<#--form.on('submit(demo1)', function(data){-->
+<#--layer.alert(JSON.stringify(data.field), {-->
+<#--title: '最终的提交信息'-->
+<#--})-->
+<#--return false;-->
+<#--});-->
+
+<#--//表单初始赋值-->
+<#--form.val('example', {-->
+<#--"username": "贤心" // "name": "value"-->
+<#--,"password": "123456"-->
+<#--,"interest": 1-->
+<#--,"like[write]": true //复选框选中状态-->
+<#--,"close": true //开关状态-->
+<#--,"sex": "女"-->
+<#--,"desc": "我爱 layui"-->
+<#--})-->
+
+
+<#--});-->
+<#--</script>-->
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

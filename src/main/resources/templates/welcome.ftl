@@ -56,6 +56,14 @@
                     <#--</dl>-->
                 </li>
                 <li class="layui-nav-item">
+                    <a href="/ordermanager">订单管理</a>
+                    <#--<dl class="layui-nav-child">-->
+                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
+                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
+                    <#--<dd><a href="">超链接</a></dd>-->
+                    <#--</dl>-->
+                </li>
+                <li class="layui-nav-item">
                     <a href="/productmanage">菜品管理</a>
                     <#--<dl class="layui-nav-child">-->
                         <#--<dd><a href="javascript:;">列表一</a></dd>-->
