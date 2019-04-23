@@ -1,117 +1,37 @@
-<!--header start-->
-<header class="header black-bg">
-    <div class="sidebar-toggle-box">
-        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-    </div>
-    <!--logo start-->
-    <a href="index.html" class="logo"><b>饿了么商家管理系统</b></a>
-    <!--logo end-->
-    <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-            <li><a class="logout" href="/loginout">Logout</a></li>
+<div class="layui-header">
+    <div class="layui-logo">饿了么餐饮管理系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a href="">用户管理</a></li>
+        <li class="layui-nav-item"><a href="">商家授权</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                ${Session.account!""}
+            </a>
+        </li>
+        <li class="layui-nav-item"><a href="/loginout">登出</a></li>
+    </ul>
+</div>
+
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed">
+                <a class="" href="javascript:;">首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/ordermanager">订单管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/productmanage">菜品管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/ingredientmanage">配料管理</a>
+            </li>
         </ul>
     </div>
-</header>
-<!--header end-->
-
-<!-- **********************************************************************************************************************************************************
-MAIN SIDEBAR MENU
-*********************************************************************************************************************************************************** -->
-<!--sidebar start-->
-<script>
-    function f() {
-        var x=$("#indexpage");
-        x.style="backgroundColor=#FFFFFF";
-    }
-</script>
-<aside>
-    <div id="sidebar"  class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-
-            <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-            <h5 class="centered">欢迎登录！${username!""}</h5>
-
-            <li class="mt">
-                <a id= "indexpage" href="/welcome" onclick="f()">
-                    <i class="fa fa-desktop"></i>
-                    <span>首页</span>
-                </a>
-            </li>
-            <li class="sub-menu">
-                <a id= "godscontroller" href="/productmanage" >
-                    <i class="fa fa-cogs"></i>
-                    <span>菜品管理</span>
-                </a>
-                <#--<ul class="sub">-->
-                    <#--<li><a  href="/productmanage">商品管理</a></li>-->
-                <#--</ul>-->
-            </li>
-            <li class="sub-menu">
-                <a id= "godscontroller" href="/Ingredient" >
-                    <i class="fa fa-cogs"></i>
-                    <span>配料管理</span>
-                </a>
-                <#--<ul class="sub">-->
-                <#--<li><a  href="/productmanage">商品管理</a></li>-->
-                <#--</ul>-->
-            </li>
-
-
-            <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class="fa fa-cogs"></i>
-                    <span>Components</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="calendar.html">Calendar</a></li>
-                    <li><a  href="gallery.html">Gallery</a></li>
-                    <li><a  href="todo_list.html">Todo List</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class="fa fa-book"></i>
-                    <span>Extra Pages</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="blank.html">Blank Page</a></li>
-                    <li><a  href="login.html">Login</a></li>
-                    <li><a  href="lock_screen.html">Lock Screen</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class="fa fa-tasks"></i>
-                    <span>Forms</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="form_component.html">Form Components</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class="fa fa-th"></i>
-                    <span>Data Tables</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="basic_table.html">Basic Table</a></li>
-                    <li><a  href="responsive_table.html">Responsive Table</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class=" fa fa-bar-chart-o"></i>
-                    <span>Charts</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="morris.html">Morris</a></li>
-                    <li><a  href="chartjs.html">Chartjs</a></li>
-                </ul>
-            </li>
-
-        </ul>
-        <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--sidebar end-->
+</div>

@@ -80,15 +80,27 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/productupdate/update")
-    public String updateproduct(String danhang,String proname,String promsg,String price,String stock,String maxstock,ModelMap map){
+    public String updateproduct(String pid,String categorie,String proname,String promsg,String price,String stock,String maxstock,ModelMap map){
 //        logger.info(danhang+"::"+proname+"::"+promsg+"::"+price+"::"+stock+"::"+maxstock);
-        try {
-            logger.info("asdasdadad");
-            productService.createproduct(danhang,proname,promsg,price,stock,maxstock);
-        } catch (ServiceException e) {
-            logger.warn("添加商品数据出错",e);
+        if (pid==null) {
+            try {
+                logger.info("asdasdadad");
+                categorie = categorie.replace(",", "");
+                productService.createproduct(categorie, proname, promsg, price, stock, maxstock);
+            } catch (ServiceException e) {
+                logger.warn("添加商品数据出错", e);
+            }
+        }else {
+            try {
+                logger.info("asdasdadad");
+                categorie = categorie.replace(",", "");
+                pid=pid.replace(",", "");
+                productService.updateproduct(pid,categorie, proname, promsg, price, stock, maxstock);
+            } catch (ServiceException e) {
+                logger.warn("修改商品数据出错", e);
+            }
         }
-        return "productupdate";
+        return toupdateproduct(null,map);
     }
 
 }

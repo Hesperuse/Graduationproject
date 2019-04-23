@@ -7,6 +7,7 @@ import eleme.openapi.sdk.api.entity.product.OItem;
 import eleme.openapi.sdk.api.entity.product.OSpec;
 import eleme.openapi.sdk.api.entity.product.QueryPage;
 import eleme.openapi.sdk.api.enumeration.product.OItemCreateProperty;
+import eleme.openapi.sdk.api.enumeration.product.OItemUpdateProperty;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.ProductService;
 import eleme.openapi.sdk.oauth.response.Token;
@@ -64,7 +65,7 @@ public class ProductApi {
         return categorylist;
     }
 
-    public void createproduct(long danhang,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
+    public void createproduct(long categoryId,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
         Token token=elmUtil.gettokenbymysql();
         ProductService productService = new ProductService(config, token);
@@ -78,8 +79,29 @@ public class ProductApi {
         oSpec.setPrice(price);
         oSpec.setStock(stock);
         oSpec.setMaxStock(maxstock);
+        oSpec.setOnShelf(1);
         oSpecs.add(oSpec);
         properties.put(OItemCreateProperty.specs,oSpecs);
-        productService.createItem(26940000135L, properties);
+        productService.createItem(categoryId, properties);
+    }
+
+    public void updateproduct(long pid,long categoryId,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        Map<OItemUpdateProperty,Object> properties = new HashMap<OItemUpdateProperty,Object>();
+        properties.put(OItemUpdateProperty.name,proname);
+        properties.put(OItemUpdateProperty.description,promsg);
+//        properties.put(OItemCreateProperty.imageHash,"3077080f760e7bf0fc985e23dd3e36e2");
+        List<OSpec> oSpecs = new ArrayList<OSpec>();
+        OSpec oSpec = new OSpec();
+        oSpec.setName("份");
+        oSpec.setPrice(price);
+        oSpec.setStock(stock);
+        oSpec.setMaxStock(maxstock);
+        oSpec.setOnShelf(1);
+        oSpecs.add(oSpec);
+        properties.put(OItemUpdateProperty.specs,oSpecs);
+        productService.updateItem(pid,categoryId,properties);
     }
 }

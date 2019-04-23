@@ -6,8 +6,8 @@
     <style type="text/css">
         .container{
             width: 420px;
-            height: 320px;
-            min-height: 320px;
+            height: 260px;
+            min-height: 260px;
             max-height: 320px;
             position: absolute;
             top: 0;
@@ -19,7 +19,7 @@
             z-index: 130;
             border-radius: 8px;
             background-color: #fff;
-            box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+            box-shadow: 0 10px 200px rgba(68, 235, 187, 0.5);
             font-size: 16px;
         }
         .close{
@@ -62,50 +62,63 @@
         a:hover{
             text-decoration: underline;
         }
+        body{
+            background-color: #23262E;
+        }
 
     </style>
+
+    <#--<script>-->
+        <#--&lt;#&ndash;<#if (message??)>&ndash;&gt;-->
+            <#--alert(${message!""});-->
+        <#--&lt;#&ndash;</#if>&ndash;&gt;-->
+    <#--</script>-->
+
 </head>
 <body>
 <form class="layui-form" action="/loginPost" method="post">
     <div class="container">
-        <button class="close" title="关闭">X</button>
-        <div class="layui-form-mid layui-word-aux">
-            <p id="logoid" height="35">饿了么商家管理系统</p>
+    <div class="layui-form-mid layui-word-aux">
+        <p id="logoid" height="35">饿了么商家管理系统</p>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="account" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-                <input type="text" name="account" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密 &nbsp;&nbsp;码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密 &nbsp;&nbsp;码</label>
-            <div class="layui-input-inline">
-                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-            </div>
-            <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
-        </div>
-        <#--<div class="layui-form-item">-->
-            <#--<label class="layui-form-label">验证码</label>-->
-            <#--<div class="layui-input-inline">-->
-                <#--<input type="text" name="title" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">-->
-            <#--</div>-->
-            <#--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+        <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
+    </div>
+    <#--<div class="layui-form-item">-->
+    <#--<label class="layui-form-label">验证码</label>-->
+    <#--<div class="layui-input-inline">-->
+    <#--<input type="text" name="title" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">-->
+    <#--</div>-->
+    <#--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
 
-        <#--</div>-->
-        <!-- 			  <div class="layui-form-item">
-                            <label class="layui-form-label">记住密码</label>
-                            <div class="layui-input-block">
-                              <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                            </div>
-                      </div> -->
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">登陆</button>
-            </div>
+    <#--</div>-->
+    <#--<div class="layui-form-item">-->
+    <#--<label class="layui-form-label">记住密码</label>-->
+    <#--<div class="layui-input-block">-->
+    <#--<input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">-->
+    <#--</div>-->
+    <#--</div>-->
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <a class="font-set">${message!""}</a>
         </div>
-        <a href="" class="font-set">忘记密码?</a>  <a href="" class="font-set">立即注册</a>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">登陆</button>
+        </div>
+    </div>
+
     </div>
 </form>
 <script src="../layui/layui.js?t=1554901098009" charset="utf-8"></script>
@@ -158,17 +171,6 @@
             })
             return false;
         });
-
-        //表单初始赋值
-        /* form.val('example', {
-           "username": "贤心" // "name": "value"
-           ,"password": "123456"
-           ,"interest": 1
-           ,"like[write]": true //复选框选中状态
-           ,"close": true //开关状态
-           ,"sex": "女"
-           ,"desc": "我爱 layui"
-         })*/
 
 
     });

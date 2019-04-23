@@ -31,4 +31,8 @@ public class ProductService {
     public void createproduct(String categorie,String proname,String promsg,String price,String stock,String maxstock) throws ServiceException {
         productApi.createproduct(Long.parseLong(categorie),proname,promsg,Double.parseDouble(price),Integer.parseInt(stock),Integer.parseInt(maxstock));
     }
+
+    public void updateproduct(String pid,String categorie,String proname,String promsg,String price,String stock,String maxstock) throws ServiceException {
+        productApi.updateproduct(Long.parseLong(pid),Long.parseLong(categorie),proname,promsg,Double.parseDouble(price),Integer.parseInt(stock),Integer.parseInt(maxstock));
+    }
 }

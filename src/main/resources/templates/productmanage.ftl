@@ -12,6 +12,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
+    <script type="text/javascript" src="../jquery-3.4.0.js"></script>
     <script>
         function delete_pro(x) {
             $.ajax({
@@ -41,67 +42,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">饿了么餐饮管理系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    ${username!""}
-                </a>
-            </li>
-            <li class="layui-nav-item"><a href="/loginout">登出</a></li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">首页</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表三</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/ordermanager">订单管理</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/productmanage">菜品管理</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item"><a href="/Ingredient">配料管理</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
-            </ul>
-        </div>
-    </div>
+    <#include "menue.ftl"/>
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
@@ -110,6 +51,15 @@
                 <legend>菜品管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
+                <form class="layui-form" action="">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width: 100px">请输入菜品编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入菜品ID" class="layui-input" style="height: 30px">
+                        </div>
+                        <button class="layui-btn" style="height: 30px;line-height: 30px">搜索</button>
+                    </div>
+                </form>
                 <table class="layui-table" lay-even="" lay-skin="row">
                     <colgroup>
                         <col width="150">
@@ -124,7 +74,7 @@
                         <th>菜品简介</th>
                         <th>月售</th>
                         <th>菜品状态</th>
-                        <th>选项</th>
+                        <th>选项&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<a href="/productupdate"><button class="layui-btn layui-btn-normal layui-btn-sm" >去新增?<i class="layui-icon"></i></button></a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -136,8 +86,9 @@
                             <td>${map.recentPopularity}</td>
                             <#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>
                             <td>
-                                    <a href="/productupdate?pid=${map.id}"><button class="layui-btn layui-btn-sm">编辑</button></a>
+                                    <a href="/productupdate?pid=${map.id}"><button class="layui-btn layui-btn-sm">编辑</button></a>&ensp;&ensp;
                                     <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro(${map.id})">删除</button>
+                                    <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="delete_pro(${map.id})">上下架</button>
                             </td>
                         </tr>
 

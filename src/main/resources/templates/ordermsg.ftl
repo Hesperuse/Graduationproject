@@ -18,30 +18,15 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-<#include "menue.ftl"/>
+    <#include "menue.ftl"/>
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend>订单管理</legend>
+                <legend>订单详细信息</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
-                <form class="layui-form" action="">
-                <div class="layui-inline">
-                    <label class="layui-form-label" style="width: 50px; line-height: 15px">日期：</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input" name="date" id="test1" placeholder="${date!"yyyy-MM-dd"}" style="height: 30px">
-                    </div>
-                </div>
-                    <div class="layui-inline">
-                    <label class="layui-form-label" style="width: 70px; line-height: 15px">订单号：</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="orderid" lay-verify="title" autocomplete="off" placeholder="请输入订单号" class="layui-input" style="height: 30px">
-                    </div>
-                    <button class="layui-btn" style="height: 30px; line-height: 30px">搜索</button>
-                </div>
-                </form>
                 <table class="layui-table" lay-even="" lay-skin="row">
                     <colgroup>
                         <col width="150">
@@ -54,31 +39,31 @@
                         <th style="width: 100px">订单号</th>
                         <th>菜品名称/数量</th>
                         <th>配送地址</th>
-                        <th>预计送达时间</th>
+                        <th>时间</th>
                         <#--<th>菜品状态</th>-->
                         <th>选项</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <#list orderlist as map>
                         <tr>
-                            <td style="width: 100px">${map.orderid}</td>
+                            <td style="width: 100px">${orderlist.orderid}</td>
                             <td>
-                            <#list map.nameandprice as key,value>
-                             ${key}/${value}<br />
-                            </#list>
+                                <#list orderlist.nameandprice as key,value>
+                                    ${key}/${value}<br />
+                                </#list>
                             </td>
-                            <td>${map.address!""}</td>
-                            <td>${map.deliverTime!""}</td>
+                            <td>${orderlist.address!""}</td>
+                            <td>
+                                <#list orderlist.timemap as key,value>
+                                    ${key}：${value}<br />
+                                </#list>
+                            </td>
                             <#--<#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>-->
                             <td>
-                                <a href="/ordermsg?orderid=${map.orderid}"><button class="layui-btn layui-btn-sm">详细信息</button></a>&ensp;
-                                <a href="/sureorder?orderid=${map.orderid}"><button class="layui-btn layui-btn-sm layui-btn-normal">确认订单</button></a>&ensp;
+                                <a href="/sureorder?orderid=${orderlist.orderid}"><button class="layui-btn layui-btn-sm layui-btn-normal">确认订单</button></a>&ensp;
                                 <a href=""><button class="layui-btn layui-btn-sm layui-btn-danger">取消订单</button></a>&ensp;&ensp;
                             </td>
                         </tr>
-
-                    </#list>
                     </tbody>
                 </table>
             </blockquote>
@@ -92,10 +77,10 @@
 </div>
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script>
-//JavaScript代码区域
-layui.use('element', function(){
-var element = layui.element;
-});
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
 </script>
 <script>
     layui.use('laydate', function() {

@@ -12,10 +12,11 @@
     <meta name="format-detection" content="telephone=no">
 
     <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
+    <script type="text/javascript" src="../jquery-3.4.0.js"></script>
     <script>
         function delete_pro(x) {
             $.ajax({
-                url: "productmanage/deletepro?pid="+x,
+                url: "ingredientdelete?igdid="+x,
                 contentType: "application/json;charset=utf-8",
                 async: false,
                 type:"GET",
@@ -41,67 +42,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">饿了么餐饮管理系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    ${username!""}
-                </a>
-            </li>
-            <li class="layui-nav-item"><a href="/loginout">登出</a></li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">首页</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表三</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/ordermanager">订单管理</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/productmanage">菜品管理</a>
-                    <#--<dl class="layui-nav-child">-->
-                    <#--<dd><a href="javascript:;">列表一</a></dd>-->
-                    <#--<dd><a href="javascript:;">列表二</a></dd>-->
-                    <#--<dd><a href="">超链接</a></dd>-->
-                    <#--</dl>-->
-                </li>
-                <li class="layui-nav-item"><a href="/Ingredient">配料管理</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
-            </ul>
-        </div>
-    </div>
+    <#include "menue.ftl"/>
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
@@ -110,6 +51,15 @@
                 <legend>配料管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
+                <form class="layui-form" action="">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width: 100px">请输入配料编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入配料编号" class="layui-input">
+                        </div>
+                        <button class="layui-btn">搜索</button>
+                    </div>
+                </form>
                 <table class="layui-table" lay-even="" lay-skin="row">
                     <colgroup>
                         <col width="150">
@@ -122,7 +72,7 @@
                         <th style="width: 100px">配料ID</th>
                         <th>配料名称</th>
                         <th>库存/最大库存</th>
-                        <th>选项</th>
+                        <th>选项&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<a href="/ingredientupdate"><button class="layui-btn layui-btn-normal layui-btn-sm" >去新增?<i class="layui-icon"></i></button></a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +82,7 @@
                             <td>${value.ingredientname}</td>
                             <td>${value.ingredientnum}/${value.ingredientmaxnum}</td>
                             <td>
-                                <a href="/productupdate?pid=${value.ingredientid}"><button class="layui-btn layui-btn-sm">编辑</button></a>
+                                <a href="/ingredientupdate?igdid=${value.ingredientid}"><button class="layui-btn layui-btn-sm">编辑</button></a>
                                 <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro(${value.ingredientid})">删除</button>
                             </td>
                         </tr>
