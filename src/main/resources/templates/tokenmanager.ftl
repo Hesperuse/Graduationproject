@@ -13,6 +13,31 @@
 
     <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <script type="text/javascript" src="../jquery-3.4.0.js"></script>
+    <script>
+        function delete_pro(x) {
+            $.ajax({
+                url: "ingredientdelete?igdid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                    window.location.reload(true);
+                }
+            });
+        }
+    </script>
+    <script>
+        function update_pro(x) {
+            $.ajax({
+                url: "productupdate?pid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                }
+            });
+        }
+    </script>
 
 </head>
 <body class="layui-layout-body">
@@ -26,7 +51,7 @@
                 <legend>Token管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
-                Code码：${codenum!""}
+                商家授权：<a href="${tokenurl!""}" target="_blank">链接地址</a>
             </blockquote>
         </div>
     </div>

@@ -105,21 +105,25 @@ public class OrderManager {
 
                 Map<String,String> timemap=new HashMap<>();
                 if (oOrder.getDeliverTime()!=null) {
-                    timemap.put("预估时间", oOrder.getDeliverTime().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                    timemap.put("预估时间", sdf.format(oOrder.getDeliverTime()));
                 }else{
                     timemap.put("预估时间", "暂无预估时间");
                 }
                 if (oOrder.getCreatedAt()!=null) {
-                    timemap.put("下单时间", oOrder.getCreatedAt().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                    timemap.put("下单时间", sdf.format(oOrder.getCreatedAt()));
                 }else{
                     timemap.put("下单时间", "暂无下单时间");
                 }
                 if (oOrder.getActiveAt()!=null) {
-                    timemap.put("订单生效时间", oOrder.getActiveAt().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                    timemap.put("订单生效时间", sdf.format(oOrder.getActiveAt()));
                 }else{
                     timemap.put("订单生效时间", "暂无生效时间");
                 }
                 ordermsg.put("timemap",timemap);
+                ordermsg.put("income",oOrder.getIncome());
             }
             map.put("orderlist",ordermsg);
         }

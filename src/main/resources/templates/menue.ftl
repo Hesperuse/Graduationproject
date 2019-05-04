@@ -2,8 +2,8 @@
     <div class="layui-logo">饿了么餐饮管理系统</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="">用户管理</a></li>
-        <li class="layui-nav-item"><a href="">商家授权</a></li>
+        <li class="layui-nav-item"><a href="/usermanager">用户管理</a></li>
+        <li class="layui-nav-item"><a href="/tokenmanager">商家授权</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">

@@ -51,11 +51,11 @@
                 <legend>菜品管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
-                <form class="layui-form" action="">
+                <form class="layui-form" action="/productmanage">
                     <div class="layui-inline">
                         <label class="layui-form-label" style="width: 100px">请输入菜品编号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入菜品ID" class="layui-input" style="height: 30px">
+                            <input type="text" name="proid" lay-verify="title" autocomplete="off" placeholder="请输入菜品ID" class="layui-input" style="height: 30px">
                         </div>
                         <button class="layui-btn" style="height: 30px;line-height: 30px">搜索</button>
                     </div>

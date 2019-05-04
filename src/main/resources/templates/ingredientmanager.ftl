@@ -83,7 +83,7 @@
                             <td>${value.ingredientnum}/${value.ingredientmaxnum}</td>
                             <td>
                                 <a href="/ingredientupdate?igdid=${value.ingredientid}"><button class="layui-btn layui-btn-sm">编辑</button></a>
-                                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro(${value.ingredientid})">删除</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro('${value.ingredientid}')">删除</button>
                             </td>
                         </tr>
 

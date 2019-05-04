@@ -25,20 +25,21 @@
             </fieldset>
             <blockquote class="layui-elem-quote">
                 <form class="layui-form" action="/productupdate/update">
-                    <input type="hidden" name="pid" value="${pid!""}">
+                    <input type="hidden" name="pid" value="${igdid!""}">
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">配料编号</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="igdid" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input">
+                            <div class="layui-input-inline">
+                                <input type="text" name="igdid" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="xd123" class="layui-input">
                             </div>
+                            <p style="color: red;width: 1500px;padding-top: 8px;">配料编号不允许修改</p>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">配料名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="igdname" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input">
+                                <input type="text" name="igdname" lay-verify="title" autocomplete="off" placeholder="请输入配料名称" class="layui-input">
                             </div>
                         </div>
                     </div>

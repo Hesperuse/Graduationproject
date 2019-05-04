@@ -9,6 +9,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IngredientController {
@@ -29,6 +30,7 @@ public class IngredientController {
         return "ingredientupdate";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/ingredientdelete")
     public void deleteingredient(String igdid,ModelMap map){
         try {

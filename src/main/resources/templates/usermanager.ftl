@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>饿了么餐饮管理系统 - 订单管理</title>
+    <title>饿了么餐饮管理系统 - 用户管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,10 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="../layui/css/layui.css">
-    <#--?t=1554901098009-->
+    <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
     <script type="text/javascript" src="../jquery-3.4.0.js"></script>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -24,7 +22,7 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend>订单详细信息</legend>
+                <legend>用户管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
                 <table class="layui-table" lay-even="" lay-skin="row">
@@ -36,34 +34,20 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th style="width: 100px">订单号</th>
-                        <th>菜品名称/数量</th>
-                        <th>配送地址</th>
-                        <th>时间</th>
-                        <th>店铺实收(单位：元)</th>
-                        <th>选项</th>
+                        <th style="width: 100px">用户名</th>
+                        <th>选项&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<a href="/userupdate"><button class="layui-btn layui-btn-normal layui-btn-sm" >去新增?<i class="layui-icon"></i></button></a></th>
                     </tr>
                     </thead>
                     <tbody>
+                    <#list userlist as value>
                         <tr>
-                            <td style="width: 100px">${orderlist.orderid}</td>
+                            <td style="width: 100px">${value!""}</td>
                             <td>
-                                <#list orderlist.nameandprice as key,value>
-                                    ${key}/${value}<br />
-                                </#list>
-                            </td>
-                            <td>${orderlist.address!""}</td>
-                            <td>
-                                <#list orderlist.timemap as key,value>
-                                    ${key}：${value}<br />
-                                </#list>
-                            </td>
-                            <td>${orderlist.income!""}</td>
-                            <td>
-                                <a href="/sureorder?orderid=${orderlist.orderid}"><button class="layui-btn layui-btn-sm layui-btn-normal">确认订单</button></a>&ensp;
-                                <a href=""><button class="layui-btn layui-btn-sm layui-btn-danger">取消订单</button></a>&ensp;&ensp;
+                                <a href="/userupdate?userid=${value!""}"><button class="layui-btn layui-btn-sm">编辑</button></a>
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_user('${value}')">删除</button>
                             </td>
                         </tr>
+                    </#list>
                     </tbody>
                 </table>
             </blockquote>
@@ -75,21 +59,11 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../layui.js?t=1554901098009" charset="utf-8"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
-    });
-</script>
-<script>
-    layui.use('laydate', function() {
-        var laydate = layui.laydate;
-
-        //常规用法
-        laydate.render({
-            elem: '#test1'
-        });
     });
 </script>
 <script>
@@ -100,6 +74,19 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
+</script>
+<script>
+    function delete_user(x) {
+        $.ajax({
+            url: "deleteuser?userid="+x,
+            contentType: "application/json;charset=utf-8",
+            async: false,
+            type:"GET",
+            success: function(data){
+                window.location.reload(true);
+            }
+        });
+    }
 </script>
 </body>
 </html>

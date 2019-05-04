@@ -41,11 +41,11 @@
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">菜品名称</label>
-                            <div class="layui-input-block">
+                            <div class="layui-input-inline">
                                 <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input">
                             </div>
                             <#if (pid??)>
-                            <p style="color: red">请注意！名称修改需与前名称重合度大于50%，否则不予修改，且一个自然周只允许修改一次</p>
+                            <p style="color: red;width: 1500px;padding-top: 8px;">请注意！名称修改需与前名称重合度大于50%，否则不予修改，且一个自然周只允许修改一次</p>
                             </#if>
                         </div>
                     </div>

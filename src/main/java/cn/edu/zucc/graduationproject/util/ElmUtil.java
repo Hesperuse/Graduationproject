@@ -2,6 +2,7 @@ package cn.edu.zucc.graduationproject.util;
 import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
 import cn.edu.zucc.graduationproject.Controller.ProductController;
 import cn.edu.zucc.graduationproject.Dao.TokenDao;
+import cn.edu.zucc.graduationproject.Service.Codeservice;
 import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
@@ -58,12 +59,14 @@ public class ElmUtil {
 
     @Autowired
     TokenDao tokenDao;
+    @Autowired
+    Codeservice codeservice;
     public Token gettokenbymysql(){
         cn.edu.zucc.graduationproject.JavaBean.Token token=null;
         token=tokenDao.gettoken();
         Token etoken=new Token();
         if (token==null){
-            etoken=getToken(ElemeConfig.IS_SANDBOX,ElemeConfig.SANDBOX_APP_KEY,ElemeConfig.SANDBOX_APP_SECRET,ElemeConfig.SANDBOX_REDIRECT_URL,ElemeConfig.code);
+            etoken=getToken(ElemeConfig.IS_SANDBOX,ElemeConfig.SANDBOX_APP_KEY,ElemeConfig.SANDBOX_APP_SECRET,ElemeConfig.SANDBOX_REDIRECT_URL,codeservice.getcodebyshopid(ElemeConfig.SANDBOX_STORE_ID+""));
             try {
                 tokenDao.countToken(etoken.getAccessToken(), etoken.getTokenType(), etoken.getExpires(), etoken.getRefreshToken(), new Date());
             }catch(Exception e){

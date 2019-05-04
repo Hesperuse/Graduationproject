@@ -8,13 +8,11 @@ import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +24,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
     @RequestMapping(value = "/productmanage")
-    public String ProductManage(ModelMap map){
+    public String ProductManage(String proid,ModelMap map){
         logger.info("Start");
         List<OItem> productlist=productService.getallproduct();
         logger.info("End");
@@ -36,6 +34,11 @@ public class ProductController {
                 OItem product=productlist.get(i);
                 Map<String,Object> productmsg=new HashMap<>();
                 productmsg.put("id",product.getId()+"");
+                if (proid!=null&&!proid.equals("")){
+                    if (!proid.equals(product.getId()+"")){
+                        continue;
+                    }
+                }
                 productmsg.put("name",product.getName());
                 productmsg.put("imgurl",product.getImageUrl());
                 productmsg.put("description",product.getDescription());

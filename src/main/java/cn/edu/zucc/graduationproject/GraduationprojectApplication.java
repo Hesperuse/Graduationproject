@@ -15,9 +15,6 @@ public class GraduationprojectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GraduationprojectApplication.class, args);
 		logger.info("--------------------项目启动完成----------------------");
-//		eleme.openapi.sdk.config.Config config1 = ElmUtil.getConfig(true);
-//		String url= ElmUtil.getAuthUrl(config1);
-//		System.out.println(url);
 	}
 
 }
