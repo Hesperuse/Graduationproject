@@ -104,4 +104,12 @@ public class ProductApi {
         properties.put(OItemUpdateProperty.specs,oSpecs);
         productService.updateItem(pid,categoryId,properties);
     }
+
+    public String uploadimg(String img) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        String hashvalue=productService.uploadImage(img);
+        return hashvalue;
+    }
 }

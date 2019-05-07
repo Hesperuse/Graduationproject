@@ -1,17 +1,22 @@
 package cn.edu.zucc.graduationproject.util;
 import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
-import cn.edu.zucc.graduationproject.Controller.ProductController;
 import cn.edu.zucc.graduationproject.Dao.TokenDao;
 import cn.edu.zucc.graduationproject.Service.Codeservice;
 import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
+import freemarker.template.utility.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ElmUtil {
@@ -100,5 +105,32 @@ public class ElmUtil {
             }
         }
         return etoken;
+    }
+
+    public List<String> getdaylistbeforetoday(int daynum) throws ParseException {
+        String startdate=null;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - daynum);
+        Date d = c.getTime();
+        startdate=format.format(d);
+        Date strdata=format.parse(startdate);
+        Date eddata=new Date();
+        List<Date> result = new ArrayList<Date>();
+        Calendar tempStart = Calendar.getInstance();
+        tempStart.setTime(strdata);
+        while(strdata.getTime()<=eddata.getTime()){
+            result.add(tempStart.getTime());
+            tempStart.add(Calendar.DAY_OF_YEAR, 1);
+            strdata = tempStart.getTime();
+        }
+        List<String> datastringlist=new ArrayList<>();
+        for (int i=0;i<result.size();i++){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = formatter.format(result.get(i));
+            datastringlist.add(dateString);
+        }
+        return datastringlist;
     }
 }

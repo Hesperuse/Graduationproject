@@ -14,7 +14,46 @@
     <link rel="stylesheet" href="../layui/css/layui.css">
     <#--?t=1554901098009-->
     <script type="text/javascript" src="../jquery-3.4.0.js"></script>
-
+    <script>
+        function confirm_ord(x) {
+            $.ajax({
+                url: "sureorder?orderid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                    var obj=data.ordererrormsg;
+                    if(typeof obj == "undefined" || obj == null || obj == ""){
+                        window.location.reload(true);
+                    }else{
+                        alert(data.ordererrormsg);
+                    }
+                }
+            });
+        }
+    </script>
+    <#--<script>-->
+        <#--<#if (ordererrormsg??)>-->
+            <#--alert("${ordererrormsg}");-->
+        <#--</#if>-->
+    <#--</script>-->
+    <script>
+        function cancel_ord(x) {
+            $.ajax({
+                url: "cancelorder?orderid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                    if (data.ordererrormsg.isEmptyObject()) {
+                        window.location.reload(true);
+                    }else{
+                        alert(data.ordererrormsg);
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -55,7 +94,7 @@
                         <th>菜品名称/数量</th>
                         <th>配送地址</th>
                         <th>预计送达时间</th>
-                        <#--<th>菜品状态</th>-->
+                        <th>订单状态</th>
                         <th>选项</th>
                     </tr>
                     </thead>
@@ -70,11 +109,12 @@
                             </td>
                             <td>${map.address!""}</td>
                             <td>${map.deliverTime!""}</td>
+                            <td>${map.status!""}</td>
                             <#--<#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>-->
                             <td>
                                 <a href="/ordermsg?orderid=${map.orderid}"><button class="layui-btn layui-btn-sm">详细信息</button></a>&ensp;
-                                <a href="/sureorder?orderid=${map.orderid}"><button class="layui-btn layui-btn-sm layui-btn-normal">确认订单</button></a>&ensp;
-                                <a href=""><button class="layui-btn layui-btn-sm layui-btn-danger">取消订单</button></a>&ensp;&ensp;
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="confirm_ord('${map.orderid}')">确认订单</button>&ensp;
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" style="margin-left: 0px;" onclick="cancel_ord('${map.orderid}')">取消订单</button>&ensp;&ensp;
                             </td>
                         </tr>
 

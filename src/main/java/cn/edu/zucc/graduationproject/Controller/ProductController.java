@@ -1,6 +1,7 @@
 package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.Service.ProductService;
+import cn.edu.zucc.graduationproject.util.GsonHelper;
 import eleme.openapi.sdk.api.entity.product.OCategory;
 import eleme.openapi.sdk.api.entity.product.OItem;
 import eleme.openapi.sdk.api.entity.product.OSpec;
@@ -12,7 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
+import javax.xml.ws.http.HTTPException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,4 +114,49 @@ public class ProductController {
         return toupdateproduct(null,map);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/imageupload")
+    public String uploadimg(String pid,MultipartFile file){
+logger.info("商品ID商品ID商品ID商品ID"+pid);
+        File f = null;
+        try {
+            f=File.createTempFile("tmp", null);
+            file.transferTo(f);
+            f.deleteOnExit();     //使用完成删除文件
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FileInputStream inputFile = null;
+        try {
+            inputFile = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String base64=null;
+        byte[] buffer = new byte[(int) f.length()];
+        try {
+            inputFile.read(buffer);
+            inputFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        base64=new BASE64Encoder().encode(buffer);
+        String encoded = base64.replaceAll("[\\s*\t\n\r]", "");
+        String hashvalue=null;
+        if (encoded!=null) {
+            try {
+                hashvalue=productService.uploadimage(encoded);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        Map<String,String> msg=new HashMap<>();
+        if (hashvalue!=null){
+            msg.put("msg","上传图片成功");
+        }else{
+            msg.put("msg","上传图片失败");
+        }
+        String str= GsonHelper.toJson(msg);
+        return str;
+    }
 }

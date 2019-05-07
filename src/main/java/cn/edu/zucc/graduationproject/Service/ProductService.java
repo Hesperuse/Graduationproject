@@ -35,4 +35,10 @@ public class ProductService {
     public void updateproduct(String pid,String categorie,String proname,String promsg,String price,String stock,String maxstock) throws ServiceException {
         productApi.updateproduct(Long.parseLong(pid),Long.parseLong(categorie),proname,promsg,Double.parseDouble(price),Integer.parseInt(stock),Integer.parseInt(maxstock));
     }
+
+    public String uploadimage(String img) throws ServiceException {
+        String hashvalue=productApi.uploadimg(img);
+        return hashvalue;
+    }
+
 }

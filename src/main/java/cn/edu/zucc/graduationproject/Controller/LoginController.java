@@ -1,7 +1,11 @@
 package cn.edu.zucc.graduationproject.Controller;
 
+import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
 import cn.edu.zucc.graduationproject.Configuration.WebSecurityConfig;
+import cn.edu.zucc.graduationproject.Service.ShopMsgService;
 import cn.edu.zucc.graduationproject.Service.loginService;
+import eleme.openapi.sdk.api.entity.shop.OShop;
+import eleme.openapi.sdk.api.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,8 @@ import org.slf4j.LoggerFactory;
 public class LoginController {
     @Autowired
     WebSecurityConfig webSecurityConfig;
+    @Autowired
+    ShopMsgService shopMsgService;
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(value = "/")
@@ -36,9 +42,19 @@ public class LoginController {
     }
 
     @RequestMapping("/welcome")
-    public String welcome(HttpServletRequest request,HttpSession session,ModelMap map){
-        String user= (String) session.getAttribute("account");
-        map.put("username",user);
+    public String welcome(HttpSession session,ModelMap map){
+        OShop oShop=null;
+        try {
+            oShop=shopMsgService.getshopmsg(ElemeConfig.SANDBOX_STORE_ID);
+        } catch (ServiceException e) {
+            logger.warn("获取店铺信息出错",e);
+        }
+        if (oShop!=null){
+            map.put("shopstate",oShop.getIsOpen());
+            map.put("deliverSpent",oShop.getDeliverSpent());
+            session.setAttribute("logourl",oShop.getImageUrl());
+            map.put("foodpopularity",oShop.getRecentFoodPopularity());
+        }
         return "welcome";
     }
 
@@ -54,7 +70,7 @@ public class LoginController {
             if (user!=null) {
                 logger.info("用户：" + user + "已登录");
                 map.put("username",user);
-                return "welcome";
+                return welcome(session,map);
             }else{
                 return "login";
             }
@@ -71,7 +87,7 @@ public class LoginController {
                 map.put("message", "登录成功");
                 logger.info("用户：" + account + "登录成功");
                 map.put("username",account);
-                return "welcome";
+                return welcome(session,map);
             }
         }
     }

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -56,6 +58,7 @@ public class OrderManager {
 
                 ordermsg.put("nameandprice",nameandprice);
                 ordermsg.put("address",oOrder.getAddress());
+                ordermsg.put("status",oOrder.getStatus());
                 if (oOrder.getDeliverTime()!=null) {
                     ordermsg.put("deliverTime", oOrder.getDeliverTime().toString());
                 }else{
@@ -63,6 +66,7 @@ public class OrderManager {
                 }
                 ordermsglist.add(ordermsg);
             }
+
             if (orderid!=null){
                 if (!"".equals(orderid)){
                     for (int i=0;i<ordermsglist.size();i++){
@@ -77,6 +81,7 @@ public class OrderManager {
                 return "ordermanager";
             }
         }
+        map.put("ordererrormsg","dasdadadas");
         map.put("orderlist",ordermsglist);
         return "ordermanager";
     }
@@ -130,11 +135,27 @@ public class OrderManager {
         return "ordermsg";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sureorder")
-    public void sureorder(String orderid){
+    public Map<String,String> sureorder(String orderid){
+        Map<String,String> msg=new HashMap<>();
+        try {
+            orderService.sureOrder(orderid);
+        } catch (ServiceException e) {
+            logger.warn("确认订单出错，错误信息",e);
+            msg.put("ordererrormsg","确认订单"+orderid+"出错，错误信息:"+e.getMessage());
+        }
+        return msg;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/cancelorder")
-    public void cancelorder(String orderid){
+    public void cancelorder(String orderid,ModelMap map){
+        try {
+            orderService.cancelOrder(orderid);
+        } catch (ServiceException e) {
+            logger.warn("取消订单出错，错误信息",e);
+            map.put("ordererrormsg","取消订单"+orderid+"出错，错误信息:"+e.getMessage());
+        }
     }
 }

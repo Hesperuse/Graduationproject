@@ -54,6 +54,7 @@
                     <div class="layui-upload-drag" id="test10">
                         <i class="layui-icon"></i>
                         <p>点击上传，或将文件拖拽到此处</p>
+                        <p style="color: red">注意！请上传正方形图片，否则上传失败！</p>
                     </div>
                     </div>
                     <div class="layui-form-item layui-form-text">
@@ -113,9 +114,9 @@
         //普通图片上传
         upload.render({
             elem: '#test10'
-            ,url: '/upload/'
-            ,done: function(res){
-                console.log(res)
+            ,url: '/imageupload?pid=${pid!""}'
+            ,done: function(data){
+                alert(data.msg);
             }
         });
     });
