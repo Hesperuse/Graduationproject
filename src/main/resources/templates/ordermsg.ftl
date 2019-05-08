@@ -14,7 +14,44 @@
     <link rel="stylesheet" href="../layui/css/layui.css">
     <#--?t=1554901098009-->
     <script type="text/javascript" src="../jquery-3.4.0.js"></script>
-
+    <script>
+        function cancel_ord(x) {
+            $.ajax({
+                url: "cancelorder?orderid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                    if (data.ordererrormsg.isEmptyObject()) {
+                        window.location.reload(true);
+                    }else{
+                        alert(data.ordererrormsg);
+                    }
+                },
+                error:function(jqXHR){
+                    alert("Error: "+jqXHR.message);
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirm_ord(x) {
+            $.ajax({
+                url: "sureorder?orderid="+x,
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                type:"GET",
+                success: function(data){
+                    var obj=data.ordererrormsg;
+                    if(typeof obj == "undefined" || obj == null || obj == ""){
+                        window.location.reload(true);
+                    }else{
+                        alert(data.ordererrormsg);
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -60,8 +97,8 @@
                             </td>
                             <td>${orderlist.income!""}</td>
                             <td>
-                                <a href="/sureorder?orderid=${orderlist.orderid}"><button class="layui-btn layui-btn-sm layui-btn-normal">确认订单</button></a>&ensp;
-                                <a href=""><button class="layui-btn layui-btn-sm layui-btn-danger">取消订单</button></a>&ensp;&ensp;
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="confirm_ord('${orderlist.orderid}')">确认订单</button>&ensp;
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" style="margin-left: 0px;" onclick="cancel_ord('${orderlist.orderid}')">取消订单</button>&ensp;&ensp;
                             </td>
                         </tr>
                     </tbody>

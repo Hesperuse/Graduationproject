@@ -112,4 +112,24 @@ public class ProductApi {
         String hashvalue=productService.uploadImage(img);
         return hashvalue;
     }
+
+    public String upproduct(long pid) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        List<Long> itemIds = new ArrayList<Long>();
+        itemIds.add(pid);
+        productService.batchListItems(itemIds);
+        return "";
+    }
+
+    public String lowproduct(long pid) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        List<Long> itemIds = new ArrayList<Long>();
+        itemIds.add(pid);
+        productService.batchDelistItems(itemIds);
+        return "";
+    }
 }

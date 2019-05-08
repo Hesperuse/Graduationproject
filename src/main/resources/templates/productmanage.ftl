@@ -27,13 +27,14 @@
         }
     </script>
     <script>
-        function update_pro(x) {
+        function upandlow_pro(x,y) {
             $.ajax({
-                url: "productupdate?pid="+x,
+                url: "upandlowshelf?pid="+x+"&state="+y,
                 contentType: "application/json;charset=utf-8",
                 async: false,
                 type:"GET",
                 success: function(data){
+                    window.location.reload(true);
                 }
             });
         }
@@ -53,7 +54,7 @@
             <blockquote class="layui-elem-quote">
                 <form class="layui-form" action="/productmanage">
                     <div class="layui-inline">
-                        <label class="layui-form-label" style="width: 100px">请输入菜品编号</label>
+                        <label class="layui-form-label" style="width: 100px;line-height: 15px;">请输入菜品编号</label>
                         <div class="layui-input-inline">
                             <input type="text" name="proid" lay-verify="title" autocomplete="off" placeholder="请输入菜品ID" class="layui-input" style="height: 30px">
                         </div>
@@ -86,9 +87,9 @@
                             <td>${map.recentPopularity}</td>
                             <#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>
                             <td>
-                                    <a href="/productupdate?pid=${map.id}"><button class="layui-btn layui-btn-sm">编辑</button></a>&ensp;&ensp;
+                                    <a href="/productupdate?pid=${map.id}&name=${map.name}&description=${map.description}"><button class="layui-btn layui-btn-sm">编辑</button></a>&ensp;&ensp;
                                     <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_pro(${map.id})">删除</button>
-                                    <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="delete_pro(${map.id})">上下架</button>
+                                    <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="upandlow_pro(${map.id},'${map.isValid}')">上下架</button>
                             </td>
                         </tr>
 

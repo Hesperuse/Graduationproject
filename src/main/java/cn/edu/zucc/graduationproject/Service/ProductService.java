@@ -41,4 +41,15 @@ public class ProductService {
         return hashvalue;
     }
 
+    public String upproduct(String pid) throws ServiceException {
+        long id = Long.parseLong(pid);
+        productApi.upproduct(id);
+        return "";
+    }
+
+    public String lowproduct(String pid) throws ServiceException {
+        long id = Long.parseLong(pid);
+        productApi.lowproduct(id);
+        return "";
+    }
 }

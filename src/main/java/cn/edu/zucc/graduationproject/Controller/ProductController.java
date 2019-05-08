@@ -25,10 +25,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 public class ProductController {
     private final static Logger logger = LoggerFactory.getLogger(ProductController.class);
+
+    private Map<String,String> imghashmap=new ConcurrentHashMap<>();
+
+    public Map<String, String> getImghashmap() {
+        return imghashmap;
+    }
+
+    public void setImghashmap(Map<String, String> imghashmap) {
+        this.imghashmap = imghashmap;
+    }
+
     @Autowired
     ProductService productService;
     @RequestMapping(value = "/productmanage")
@@ -77,9 +89,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/productupdate")
-    public String toupdateproduct(String pid,ModelMap map){
+    public String toupdateproduct(String pid,String name,String description,ModelMap map){
         if (pid!=null){
             map.put("pid",pid);
+        }
+        if (name!=null){
+            map.put("name",name);
+        }
+        if (description!=null){
+            map.put("description",description);
         }
         try {
             List<OCategory> categories=productService.getallCategories();
@@ -92,32 +110,48 @@ public class ProductController {
 
     @RequestMapping(value = "/productupdate/update")
     public String updateproduct(String pid,String categorie,String proname,String promsg,String price,String stock,String maxstock,ModelMap map){
-//        logger.info(danhang+"::"+proname+"::"+promsg+"::"+price+"::"+stock+"::"+maxstock);
-        if (pid==null) {
+        if (pid!=null){
+            map.put("pid",pid);
+        }
+        if (proname!=null){
+            map.put("name",proname);
+        }
+        if (promsg!=null){
+            map.put("description",promsg);
+        }
+        if (pid==null||"".equals(pid)) {
             try {
-                logger.info("asdasdadad");
+//                logger.info("asdasdadad");
                 categorie = categorie.replace(",", "");
+                if ("".equals(proname)||"".equals(promsg)||"".equals(price)||"".equals(stock)||"".equals(maxstock)){
+                    map.put("errormsg","有参数为空添加出错");
+                    return toupdateproduct(null,null,null,map);
+                }
                 productService.createproduct(categorie, proname, promsg, price, stock, maxstock);
             } catch (ServiceException e) {
                 logger.warn("添加商品数据出错", e);
             }
         }else {
             try {
-                logger.info("asdasdadad");
+//                logger.info("asdasdadad");
                 categorie = categorie.replace(",", "");
                 pid=pid.replace(",", "");
+                if ("".equals(proname)||"".equals(promsg)||"".equals(price)||"".equals(stock)||"".equals(maxstock)){
+                    map.put("errormsg","有参数为空修改出错");
+                    return toupdateproduct(null,null,null,map);
+                }
                 productService.updateproduct(pid,categorie, proname, promsg, price, stock, maxstock);
             } catch (ServiceException e) {
                 logger.warn("修改商品数据出错", e);
             }
         }
-        return toupdateproduct(null,map);
+        return toupdateproduct(null,null,null,map);
     }
 
     @ResponseBody
     @RequestMapping(value = "/imageupload")
     public String uploadimg(String pid,MultipartFile file){
-logger.info("商品ID商品ID商品ID商品ID"+pid);
+//logger.info("商品ID商品ID商品ID商品ID"+pid);
         File f = null;
         try {
             f=File.createTempFile("tmp", null);
@@ -152,11 +186,42 @@ logger.info("商品ID商品ID商品ID商品ID"+pid);
         }
         Map<String,String> msg=new HashMap<>();
         if (hashvalue!=null){
-            msg.put("msg","上传图片成功");
+            msg.put("msg", "上传图片成功");
+            if (pid!=null) {
+                imghashmap.put(pid,hashvalue);
+            }else{
+                imghashmap.put("新增图片",hashvalue);
+            }
         }else{
             msg.put("msg","上传图片失败");
         }
         String str= GsonHelper.toJson(msg);
         return str;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/upandlowshelf")
+    public String upandlowshelfproduct(String pid,String state){
+        if (pid==null){
+            return "出错！商品编号不能为空";
+        }
+        if (state!=null){
+            if ("已上架".equals(state)){
+                try {
+                    productService.lowproduct(pid);
+                } catch (ServiceException e) {
+                    logger.warn("商品下架出错",e);
+                }
+            }
+            if ("已下架".equals(state)){
+                try {
+                    productService.upproduct(pid);
+                } catch (ServiceException e) {
+                    logger.warn("商品上架出错",e);
+                }
+            }
+        }
+        return "";
+    }
+
 }

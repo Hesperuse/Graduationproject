@@ -153,7 +153,7 @@ public class OrderManager {
     public void cancelorder(String orderid,ModelMap map){
         try {
             orderService.cancelOrder(orderid);
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             logger.warn("取消订单出错，错误信息",e);
             map.put("ordererrormsg","取消订单"+orderid+"出错，错误信息:"+e.getMessage());
         }

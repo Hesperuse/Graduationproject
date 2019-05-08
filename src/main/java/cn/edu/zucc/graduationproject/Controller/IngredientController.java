@@ -30,6 +30,8 @@ public class IngredientController {
         return "ingredientupdate";
     }
 
+
+
     @ResponseBody
     @RequestMapping(value = "/ingredientdelete")
     public void deleteingredient(String igdid,ModelMap map){

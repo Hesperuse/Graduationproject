@@ -35,7 +35,7 @@ public class OrderService {
         orderService.confirmOrderLite(id);
     }
 
-    public void cancelOrder(String id) throws ServiceException {
+    public void cancelOrder(String id) throws Exception {
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
         Token token=elmUtil.gettokenbymysql();
         eleme.openapi.sdk.api.service.OrderService orderService = new eleme.openapi.sdk.api.service.OrderService(config, token);

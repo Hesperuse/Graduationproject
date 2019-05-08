@@ -12,6 +12,11 @@
     <meta name="format-detection" content="telephone=no">
 
     <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
+    <script>
+        <#if (errormsg??)>
+            alert("${errormsg}");
+        </#if>
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -42,7 +47,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">菜品名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input">
+                                <input type="text" name="proname" lay-verify="title" autocomplete="off" placeholder="${name!"请输入菜品名称"}" class="layui-input">
                             </div>
                             <#if (pid??)>
                             <p style="color: red;width: 1500px;padding-top: 8px;">请注意！名称修改需与前名称重合度大于50%，否则不予修改，且一个自然周只允许修改一次</p>
@@ -60,7 +65,7 @@
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">菜品描述</label>
                         <div class="layui-input-block">
-                            <textarea name="promsg" placeholder="请输入菜品描述" class="layui-textarea"></textarea>
+                            <textarea name="promsg" placeholder="${description!"请输入菜品描述"}" class="layui-textarea"></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">

@@ -30,9 +30,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">配料编号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="igdid" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="xd123" class="layui-input">
+                                <#if (igdid??)><input type="text" name="igdid" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${igdid!""}" class="layui-input"><#else ><input type="text" name="igdid" lay-verify="title" autocomplete="off" placeholder="请输入配料编号" class="layui-input"></#if>
                             </div>
+                            <#if (igdid??)>
                             <p style="color: red;width: 1500px;padding-top: 8px;">配料编号不允许修改</p>
+                            </#if>
                         </div>
                     </div>
                     <div class="layui-form-item">

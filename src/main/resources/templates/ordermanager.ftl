@@ -24,8 +24,9 @@
                 success: function(data){
                     var obj=data.ordererrormsg;
                     if(typeof obj == "undefined" || obj == null || obj == ""){
-                        window.location.reload(true);
+
                     }else{
+                        window.location.reload(true);
                         alert(data.ordererrormsg);
                     }
                 }
@@ -45,11 +46,16 @@
                 async: false,
                 type:"GET",
                 success: function(data){
-                    if (data.ordererrormsg.isEmptyObject()) {
-                        window.location.reload(true);
+                    var obj=data.ordererrormsg;
+                    if(typeof obj == "undefined" || obj == null || obj == ""){
+                        alert("取消订单失败");
                     }else{
+                        window.location.reload(true);
                         alert(data.ordererrormsg);
                     }
+                },
+                error:function(jqXHR){
+                    alert("Error: "+jqXHR.message);
                 }
             });
         }
