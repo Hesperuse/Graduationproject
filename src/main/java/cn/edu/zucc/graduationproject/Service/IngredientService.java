@@ -16,11 +16,22 @@ public class IngredientService {
     }
 
     public void createingredient(String ingredientid, String ingredientname,int ingredientnum, int ingredientmaxnum){
-        ingredientDao.createingredient(ingredientid,ingredientname,ingredientnum,ingredientmaxnum);
+//        ingredientDao.createingredient(ingredientid,ingredientname,ingredientnum,ingredientmaxnum);
+        Ingredient ingredient=new Ingredient();
+        ingredient.setIngredientid(ingredientid);
+        ingredient.setIngredientname(ingredientname);
+        ingredient.setIngredientnum(ingredientnum);
+        ingredient.setIngredientmaxnum(ingredientmaxnum);
+        ingredientDao.save(ingredient);
     }
 
     public void updateingredient(String ingredientid, String ingredientname,int ingredientnum, int ingredientmaxnum){
-        ingredientDao.updateingredient(ingredientname,ingredientnum,ingredientmaxnum,ingredientid);
+        Ingredient ingredient=new Ingredient();
+        ingredient.setIngredientid(ingredientid);
+        ingredient.setIngredientname(ingredientname);
+        ingredient.setIngredientnum(ingredientnum);
+        ingredient.setIngredientmaxnum(ingredientmaxnum);
+        ingredientDao.save(ingredient);
     }
 
     public void deleteingredient(String ingredientid){

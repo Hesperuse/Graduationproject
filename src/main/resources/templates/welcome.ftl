@@ -11,6 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
+    <script src="../js/echarts.js"></script>
+    <script type="text/javascript" src="../jquery-3.4.0.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
 </head>
 <body class="layui-layout-body">
@@ -59,6 +61,9 @@
             <blockquote class="layui-elem-quote">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                     <legend>近一周店铺情况统计曲线</legend>
+                    <div id="can1" style="width:1600px;height:400px">
+                        你的浏览器不支持canvas，请升级浏览器
+                    </div>
                 </fieldset>
             </blockquote>
 
@@ -90,6 +95,50 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
+</script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('can1'));
+    var tit = ['','','',''];
+    var tit1=['每日barcode订单总数'];
+    var title=tit.concat(tit1);
+    // 指定图表的配置项和数据
+    var option1 = {
+        title: {
+            text: '每日barcode订单总数'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:title
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            data: ["2019-05-01","2019-05-02","2019-05-03","2019-05-04","2019-05-05","2019-05-06","2019-05-07","2019-05-08"]
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '每日barcode订单总数',
+            type: 'line',
+            data: [5869,6855,4843,7707,7548,6539,7174,8422]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
 </script>
 </body>
 </html>

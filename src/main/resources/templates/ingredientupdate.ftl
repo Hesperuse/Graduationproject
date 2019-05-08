@@ -24,13 +24,13 @@
                 <legend>配料信息管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
-                <form class="layui-form" action="/productupdate/update">
-                    <input type="hidden" name="pid" value="${igdid!""}">
+                <form class="layui-form" action="/ingredientupdate/update">
+                    <#if (igdid??)><input type="hidden" name="igdid" value="${igdid!""}"></#if>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">配料编号</label>
                             <div class="layui-input-inline">
-                                <#if (igdid??)><input type="text" name="igdid" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${igdid!""}" class="layui-input"><#else ><input type="text" name="igdid" lay-verify="title" autocomplete="off" placeholder="请输入配料编号" class="layui-input"></#if>
+                                <#if (igdid??)><input type="text" name="igdi" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${igdid!""}" class="layui-input"><#else ><input type="text" name="igdid" lay-verify="title" autocomplete="off" placeholder="请输入配料编号" class="layui-input"></#if>
                             </div>
                             <#if (igdid??)>
                             <p style="color: red;width: 1500px;padding-top: 8px;">配料编号不允许修改</p>

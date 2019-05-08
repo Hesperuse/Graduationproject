@@ -29,4 +29,5 @@ public interface IngredientDao  extends JpaRepository<Ingredient,String> {
     @Transactional
     @Query(value = "DELETE FROM ingredient WHERE ingredient.ingredientid=?1", nativeQuery = true)
     public void deleteingredient(String ingredientid);
+
 }

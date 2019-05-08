@@ -23,13 +23,20 @@ public class IngredientController {
     }
 
     @RequestMapping(value = "/ingredientupdate")
-    public String createingredient(String igdid,ModelMap map){
+    public String toupdateingredient(String igdid,ModelMap map){
         if (igdid!=null){
             map.put("igdid",igdid);
         }
         return "ingredientupdate";
     }
 
+    @RequestMapping(value = "/ingredientupdate/update")
+    public String createingredient(String igdid,String igdname,String stock,String maxstock,ModelMap map){
+        int stocknum=Integer.parseInt(stock);
+        int maxstocknum=Integer.parseInt(maxstock);
+        ingredientService.createingredient(igdid,igdname,stocknum,maxstocknum);
+        return toupdateingredient(null,map);
+    }
 
 
     @ResponseBody
