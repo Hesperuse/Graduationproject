@@ -32,6 +32,9 @@
             <li class="layui-nav-item">
                 <a href="/ingredientmanage">配料管理</a>
             </li>
+            <li class="layui-nav-item">
+                <a href="/shopdiagram">店铺统计</a>
+            </li>
         </ul>
     </div>
 </div>

@@ -2,8 +2,12 @@ package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
 import cn.edu.zucc.graduationproject.Configuration.WebSecurityConfig;
+import cn.edu.zucc.graduationproject.Service.OrderService;
 import cn.edu.zucc.graduationproject.Service.ShopMsgService;
 import cn.edu.zucc.graduationproject.Service.loginService;
+import cn.edu.zucc.graduationproject.util.ElmUtil;
+import cn.edu.zucc.graduationproject.util.GsonHelper;
+import eleme.openapi.sdk.api.entity.order.OrderList;
 import eleme.openapi.sdk.api.entity.shop.OShop;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +21,20 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class LoginController {
     @Autowired
     WebSecurityConfig webSecurityConfig;
     @Autowired
     ShopMsgService shopMsgService;
+    @Autowired
+    ElmUtil elmUtil;
+    @Autowired
+    OrderService orderService;
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(value = "/")
@@ -54,6 +66,35 @@ public class LoginController {
             map.put("deliverSpent",oShop.getDeliverSpent());
             session.setAttribute("logourl",oShop.getImageUrl());
             map.put("foodpopularity",oShop.getRecentFoodPopularity());
+        }
+        List<String> datelist=null;
+        try {
+            datelist= elmUtil.getdaylistbeforetoday(7);
+        } catch (ParseException e) {
+            logger.warn("获取时间列表出错",e);
+        }
+        List<Integer> totalorder=new ArrayList<>();
+        if (datelist!=null){
+            String datejson=GsonHelper.toJson(datelist);
+            map.put("datejson",datejson);
+            for (int i=0;i<datelist.size();i++) {
+                OrderList orderlist = new OrderList();
+                try {
+                    orderlist = orderService.getAllOrder(datelist.get(i));
+                } catch (Exception e) {
+                    logger.warn("获取全部订单出错", e);
+                }
+                if (orderlist!=null){
+                    int total=orderlist.getTotal();
+                    if (total!=0){
+                        totalorder.add(total);
+                    }else{
+                        totalorder.add(0);
+                    }
+                }
+            }
+            String json= GsonHelper.toJson(totalorder);
+            map.put("totalorder",json);
         }
         return "welcome";
     }

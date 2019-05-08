@@ -23,59 +23,24 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend>店铺情况</legend>
+                <legend>店铺情况统计曲线</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
-                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>营业情况--<#if (shopstate??)><#if shopstate==1><div class="layui-inline"><p style="color: green;margin-bottom: 1px;">营业中</p></div><#else ><div class="layui-inline"><p style="color: red;margin-bottom: 1px;">未营业</p></div></#if></#if></legend>
-                </fieldset>
-                <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md2">
-                        <div class="layui-card">
-                            <div class="layui-card-header">最近一个月售出美食份数</div>
-                            <div class="layui-card-body" style="font: 23px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;">
-                                ${foodpopularity!"暂无美食售出份数！"}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <div class="layui-card">
-                            <div class="layui-card-header">近两周平均配送时间</div>
-                            <div class="layui-card-body"style="font: 23px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;">
-                                ${deliverSpent!"暂无平均配送时间"}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <div class="layui-card">
-                            <div class="layui-card-header">店铺评价的列表</div>
-                            <div class="layui-card-body"style="font: 23px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;">
-                                <ul>
-                                    <li><div id="test10"></div></li>
-                                    <li><div id="test11"></div></li>
-                                    <li><div id="test12"></div></li>
-                                    <li><div id="test13"></div></li>
-                                    <li><div id="test14"></div></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </blockquote>
-
-            <blockquote class="layui-elem-quote">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                    <legend>近一周店铺情况统计曲线</legend>
+                    <legend>近一周店铺订单情况统计曲线</legend>
                     <div id="can1" style="width:1300px;height:370px">
                         你的浏览器不支持canvas，请升级浏览器
                     </div>
                 </fieldset>
             </blockquote>
-
-
-
-
-
+            <blockquote class="layui-elem-quote">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                    <legend>店铺评价情况累计统计图</legend>
+                    <div id="can2" style="width:1300px;height:370px">
+                        你的浏览器不支持canvas，请升级浏览器
+                    </div>
+                </fieldset>
+            </blockquote>
         </div>
     </div>
 
@@ -182,6 +147,46 @@
 
     // 使用刚指定的配置项和数据显示图表。
     myChart1.setOption(option1);
+</script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('can2'));
+    var tit = ['','','',''];
+    var tit1=['每日外卖订单总数'];
+    var title=tit.concat(tit1);
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['1星评价','2星评价','3星评价','4星评价','5星评价']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:${numRatings!""},
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option);
 </script>
 </body>
 </html>
