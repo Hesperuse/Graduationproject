@@ -40,7 +40,7 @@ public class ProductApi {
         QueryPage queryPage = new QueryPage();
         queryPage.setShopId(ElemeConfig.SANDBOX_STORE_ID);
         queryPage.setOffset(0L);
-        queryPage.setLimit(20L);
+        queryPage.setLimit(100L);
         List<OItem> productlist=null;
         try {
             productlist = productService.queryItemByPage(queryPage);

@@ -10,6 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+     <#--十秒刷新一次页面-->
+    <meta http-equiv="refresh" content="10">
 
     <link rel="stylesheet" href="../layui/css/layui.css">
     <#--?t=1554901098009-->
@@ -115,7 +117,7 @@
                             </td>
                             <td>${map.address!""}</td>
                             <td>${map.deliverTime!""}</td>
-                            <td>${map.status!""}</td>
+                            <td><#if (map.status??)><#if map.status=='unprocessed'><p style="color: red">${map.status}</p><#else ><p style="color:green">${map.status}</p></#if></#if></td>
                             <#--<#if map.isValid=="已上架"><td>${map.isValid}</td><#else ><td style="color: red">${map.isValid}</td></#if>-->
                             <td>
                                 <a href="/ordermsg?orderid=${map.orderid}"><button class="layui-btn layui-btn-sm">详细信息</button></a>&ensp;

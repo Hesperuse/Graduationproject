@@ -79,17 +79,18 @@ public class OrderManager {
                 ordermsg.put("nameandprice",nameandprice);
                 ordermsg.put("address",oOrder.getAddress());
                 OOrderStatus status=oOrder.getStatus();
-                if ("unprocessed".equals(status)) {
-                    ordermsg.put("status","未确认订单");
-                }else if ("valid".equals(status)){
-                    ordermsg.put("status","已确认订单");
-                }else if ("invalid".equals(status)){
-                    ordermsg.put("status","已取消订单");
-                }else if ("pending".equals(status)){
-                    ordermsg.put("status","未生效订单");
-                }else if ("settled".equals(status)){
-                    ordermsg.put("status","已完成订单");
-                }
+//                if (status..equals(status)) {
+//                    ordermsg.put("status","未确认订单");
+//                }else if ("valid".equals(status)){
+//                    ordermsg.put("status","已确认订单");
+//                }else if ("invalid".equals(status)){
+//                    ordermsg.put("status","已取消订单");
+//                }else if ("pending".equals(status)){
+//                    ordermsg.put("status","未生效订单");
+//                }else if ("settled".equals(status)){
+//                    ordermsg.put("status","已完成订单");
+//                }
+                ordermsg.put("status",status);
                 if (oOrder.getDeliverTime()!=null) {
                     ordermsg.put("deliverTime", oOrder.getDeliverTime().toString());
                 }else{
