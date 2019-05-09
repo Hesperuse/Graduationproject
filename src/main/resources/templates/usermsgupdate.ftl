@@ -67,7 +67,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        © 饿了么餐饮管理系统 - CJC
     </div>
 </div>
 <script src="../layui/layui.js?t=1554901098009" charset="utf-8"></script>
