@@ -110,9 +110,6 @@ public class ProductController {
 
     @RequestMapping(value = "/productupdate/update")
     public String updateproduct(String pid,String categorie,String proname,String promsg,String price,String stock,String maxstock,ModelMap map){
-        if (pid!=null){
-            map.put("pid",pid);
-        }
         if (proname!=null){
             map.put("name",proname);
         }
@@ -127,7 +124,8 @@ public class ProductController {
                     map.put("errormsg","有参数为空添加出错");
                     return toupdateproduct(null,null,null,map);
                 }
-                productService.createproduct(categorie, proname, promsg, price, stock, maxstock);
+                String imagehash=imghashmap.get("新增图片");
+                productService.createproduct(categorie, proname, promsg, price, stock, maxstock,imagehash);
             } catch (ServiceException e) {
                 logger.warn("添加商品数据出错", e);
             }
@@ -138,9 +136,10 @@ public class ProductController {
                 pid=pid.replace(",", "");
                 if ("".equals(proname)||"".equals(promsg)||"".equals(price)||"".equals(stock)||"".equals(maxstock)){
                     map.put("errormsg","有参数为空修改出错");
-                    return toupdateproduct(null,null,null,map);
+                    return toupdateproduct(pid,null,null,map);
                 }
-                productService.updateproduct(pid,categorie, proname, promsg, price, stock, maxstock);
+                String imagehash=imghashmap.get(pid);
+                productService.updateproduct(pid,categorie, proname, promsg, price, stock, maxstock,imagehash);
             } catch (ServiceException e) {
                 logger.warn("修改商品数据出错", e);
             }
@@ -187,7 +186,7 @@ public class ProductController {
         Map<String,String> msg=new HashMap<>();
         if (hashvalue!=null){
             msg.put("msg", "上传图片成功");
-            if (pid!=null) {
+            if (pid!=null&&!"".equals(pid)) {
                 imghashmap.put(pid,hashvalue);
             }else{
                 imghashmap.put("新增图片",hashvalue);

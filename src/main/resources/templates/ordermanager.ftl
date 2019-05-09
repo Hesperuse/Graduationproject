@@ -24,7 +24,7 @@
                 success: function(data){
                     var obj=data.ordererrormsg;
                     if(typeof obj == "undefined" || obj == null || obj == ""){
-
+                        // window.location.reload(true);
                     }else{
                         window.location.reload(true);
                         alert(data.ordererrormsg);

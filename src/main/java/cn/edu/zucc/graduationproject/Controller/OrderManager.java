@@ -2,10 +2,10 @@ package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.Service.OrderService;
 import cn.edu.zucc.graduationproject.util.ElmUtil;
-import cn.edu.zucc.graduationproject.util.GsonHelper;
 import eleme.openapi.sdk.api.entity.order.OGoodsItem;
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.entity.order.OrderList;
+import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -41,6 +40,27 @@ public class OrderManager {
         }catch (Exception e){
             logger.warn("获取全部订单出错",e);
         }
+
+        List<String> nckorderlist=null;
+        try {
+            nckorderlist=orderService.getallnotcheckorder();
+        } catch (ServiceException e) {
+            logger.warn("获取全部未处理订单出错",e);
+        }
+
+        if (nckorderlist!=null){
+            for (int i=0;i<nckorderlist.size();i++){
+                OOrder oOrder=null;
+                try {
+                    oOrder=orderService.getOrderByid(nckorderlist.get(i));
+                } catch (ServiceException e) {
+                    logger.warn("获取单个订单详细信息出错");
+                }
+                if (oOrder!=null){
+                    orderlist.getList().add(oOrder);
+                }
+            }
+        }
         List<Map<String,Object>> ordermsglist=new ArrayList<>();
         List<Map<String,Object>> ordermsgmap=new ArrayList<>();
         if(orderlist!=null){
@@ -58,7 +78,18 @@ public class OrderManager {
 
                 ordermsg.put("nameandprice",nameandprice);
                 ordermsg.put("address",oOrder.getAddress());
-                ordermsg.put("status",oOrder.getStatus());
+                OOrderStatus status=oOrder.getStatus();
+                if ("unprocessed".equals(status)) {
+                    ordermsg.put("status","未确认订单");
+                }else if ("valid".equals(status)){
+                    ordermsg.put("status","已确认订单");
+                }else if ("invalid".equals(status)){
+                    ordermsg.put("status","已取消订单");
+                }else if ("pending".equals(status)){
+                    ordermsg.put("status","未生效订单");
+                }else if ("settled".equals(status)){
+                    ordermsg.put("status","已完成订单");
+                }
                 if (oOrder.getDeliverTime()!=null) {
                     ordermsg.put("deliverTime", oOrder.getDeliverTime().toString());
                 }else{
@@ -141,6 +172,7 @@ public class OrderManager {
         Map<String,String> msg=new HashMap<>();
         try {
             orderService.sureOrder(orderid);
+            msg.put("ordererrormsg","确认订单成功");
         } catch (ServiceException e) {
             logger.warn("确认订单出错，错误信息",e);
             msg.put("ordererrormsg","确认订单"+orderid+"出错，错误信息:"+e.getMessage());

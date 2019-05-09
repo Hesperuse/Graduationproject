@@ -65,14 +65,16 @@ public class ProductApi {
         return categorylist;
     }
 
-    public void createproduct(long categoryId,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
+    public void createproduct(long categoryId,String proname,String promsg,double price,int stock,int maxstock,String imagehash) throws ServiceException {
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
         Token token=elmUtil.gettokenbymysql();
         ProductService productService = new ProductService(config, token);
         Map<OItemCreateProperty,Object> properties = new HashMap<OItemCreateProperty,Object>();
         properties.put(OItemCreateProperty.name,proname);
         properties.put(OItemCreateProperty.description,promsg);
-//        properties.put(OItemCreateProperty.imageHash,"3077080f760e7bf0fc985e23dd3e36e2");
+        if (imagehash!=null){
+            properties.put(OItemCreateProperty.imageHash,imagehash);
+        }
         List<OSpec> oSpecs = new ArrayList<OSpec>();
         OSpec oSpec = new OSpec();
         oSpec.setName("份");
@@ -85,14 +87,16 @@ public class ProductApi {
         productService.createItem(categoryId, properties);
     }
 
-    public void updateproduct(long pid,long categoryId,String proname,String promsg,double price,int stock,int maxstock) throws ServiceException {
+    public void updateproduct(long pid,long categoryId,String proname,String promsg,double price,int stock,int maxstock,String imagehash) throws ServiceException {
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
         Token token=elmUtil.gettokenbymysql();
         ProductService productService = new ProductService(config, token);
         Map<OItemUpdateProperty,Object> properties = new HashMap<OItemUpdateProperty,Object>();
         properties.put(OItemUpdateProperty.name,proname);
         properties.put(OItemUpdateProperty.description,promsg);
-//        properties.put(OItemCreateProperty.imageHash,"3077080f760e7bf0fc985e23dd3e36e2");
+        if (imagehash!=null){
+            properties.put(OItemUpdateProperty.imageHash,imagehash);
+        }
         List<OSpec> oSpecs = new ArrayList<OSpec>();
         OSpec oSpec = new OSpec();
         oSpec.setName("份");

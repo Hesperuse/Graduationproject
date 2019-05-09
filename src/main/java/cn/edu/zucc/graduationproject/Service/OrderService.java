@@ -10,6 +10,8 @@ import eleme.openapi.sdk.oauth.response.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     @Autowired
@@ -19,6 +21,13 @@ public class OrderService {
         Token token=elmUtil.gettokenbymysql();
         eleme.openapi.sdk.api.service.OrderService orderService = new eleme.openapi.sdk.api.service.OrderService(config, token);
         return orderService.getAllOrders(ElemeConfig.SANDBOX_STORE_ID, 1, 50, date);
+    }
+
+    public List<String> getallnotcheckorder() throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        eleme.openapi.sdk.api.service.OrderService orderService = new eleme.openapi.sdk.api.service.OrderService(config, token);
+        return orderService.getUnprocessOrders(ElemeConfig.SANDBOX_STORE_ID);
     }
 
     public OOrder getOrderByid(String id) throws ServiceException {
