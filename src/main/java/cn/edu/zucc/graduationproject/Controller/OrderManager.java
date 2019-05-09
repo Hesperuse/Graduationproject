@@ -1,10 +1,12 @@
 package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.Service.OrderService;
+import cn.edu.zucc.graduationproject.Service.ProductService;
 import cn.edu.zucc.graduationproject.util.ElmUtil;
 import eleme.openapi.sdk.api.entity.order.OGoodsItem;
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.entity.order.OrderList;
+import eleme.openapi.sdk.api.entity.product.OItem;
 import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
@@ -25,6 +27,8 @@ public class OrderManager {
     ElmUtil elmUtil;
     @Autowired
     OrderService orderService;
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(value = "/ordermanager")
     public String getallorder(String date, String orderid,ModelMap map){
@@ -177,6 +181,32 @@ public class OrderManager {
         } catch (ServiceException e) {
             logger.warn("确认订单出错，错误信息",e);
             msg.put("ordererrormsg","确认订单"+orderid+"出错，错误信息:"+e.getMessage());
+        }
+        if ("确认订单成功".equals(msg.get("ordererrormsg"))){
+            OOrder oOrder=new OOrder();
+            try {
+                oOrder=orderService.getOrderByid(orderid);
+            } catch (ServiceException e) {
+                logger.warn("获取单个订单详细信息出错");
+            }
+//            if (oOrder!=null){
+//                Map<Long,Object> nameandprice=new HashMap<>();
+//                for (int j=0;j<oOrder.getGroups().get(0).getItems().size();j++){
+//                    OGoodsItem items=oOrder.getGroups().get(0).getItems().get(j);
+//                    nameandprice.put(items.getId(),items.getQuantity());
+//                }
+//                for (Map.Entry<Long,Object> entry:nameandprice.entrySet()){
+//                    OItem oItem=null;
+//                    try {
+//                       oItem=productService.getproductbyid(entry.getKey());
+//                    } catch (ServiceException e) {
+//                        logger.warn("获取单个商品出错",e);
+//                    }
+//                    if (oItem!=null){
+//                        List<String> materials=oItem.getAttributes()
+//                    }
+//                }
+//            }
         }
         return msg;
     }

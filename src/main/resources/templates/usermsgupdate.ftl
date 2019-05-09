@@ -21,16 +21,17 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend>配料信息管理</legend>
+                <legend>用户信息管理</legend>
             </fieldset>
             <blockquote class="layui-elem-quote">
                 <form class="layui-form" action="/userupdate/update">
-                    <input type="hidden" name="userid" value="${userid!""}">
+                    <#if (userid??)><input type="hidden" name="userid" value="${userid!""}"></#if>
+                    <#if (userid??)><input type="hidden" name="operation" value="update"><#else ><input type="hidden" name="operation" value="add"></#if>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">用户账号</label>
                             <div class="layui-input-inline">
-                                <#if (userid??)><input type="text" name="user" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${userid!""}" class="layui-input"><#else ><input type="text" name="user" lay-verify="title" autocomplete="off" placeholder="请输入用户账号" class="layui-input"></#if>
+                                <#if (userid??)><input type="text" name="user" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${userid!""}" class="layui-input"><#else ><input type="text" name="userid" lay-verify="title" autocomplete="off" placeholder="请输入用户账号" class="layui-input"></#if>
                             </div>
                             <#if (userid??)>
                                 <p style="color: red;width: 1500px;padding-top: 8px;">用户账号不允许修改</p>

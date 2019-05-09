@@ -65,6 +65,13 @@ public class ProductApi {
         return categorylist;
     }
 
+    public OItem getproductbyid(long id) throws ServiceException {
+        eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
+        Token token=elmUtil.gettokenbymysql();
+        ProductService productService = new ProductService(config, token);
+        return productService.getItem(id);
+    }
+
     public void createproduct(long categoryId,String proname,String promsg,double price,int stock,int maxstock,String imagehash) throws ServiceException {
         eleme.openapi.sdk.config.Config config = ElmUtil.getConfig(true);
         Token token=elmUtil.gettokenbymysql();

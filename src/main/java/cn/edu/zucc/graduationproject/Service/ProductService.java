@@ -20,6 +20,10 @@ public class ProductService {
         return productlist;
     }
 
+    public OItem getproductbyid(long id) throws ServiceException {
+        return productApi.getproductbyid(id);
+    }
+
     public void deleteproduct(String id) throws ServiceException {
         productApi.deleteproductbyid(id);
     }

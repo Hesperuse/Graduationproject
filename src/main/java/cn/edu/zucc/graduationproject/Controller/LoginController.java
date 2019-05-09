@@ -124,6 +124,11 @@ public class LoginController {
             } else {
                 // 设置session
                 session.setAttribute("account", account);
+                if ("admin".equals(account)){
+                    session.setAttribute("accounttype","admin");
+                }else{
+                    session.setAttribute("accounttype","user");
+                }
                 map.put("success", true);
                 map.put("message", "登录成功");
                 logger.info("用户：" + account + "登录成功");

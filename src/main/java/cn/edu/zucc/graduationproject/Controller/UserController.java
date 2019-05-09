@@ -34,7 +34,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userupdate/update")
-    public String changeuser(String userid,String password,ModelMap map){
+    public String changeuser(String userid,String password,String operation,ModelMap map){
+        if ("admin".equals(userid)&&"add".equals(operation)){
+            map.put("errormsg","不允许新增管理员账户");
+        }
         userService.changeuser(userid,password);
         return getAlluser(map);
     }

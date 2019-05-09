@@ -13,6 +13,11 @@
 
     <link rel="stylesheet" href="../layui/css/layui.css?t=1554901098009"  media="all">
     <script type="text/javascript" src="../jquery-3.4.0.js"></script>
+    <script>
+        <#if (errormsg??)>
+        alert("${errormsg}");
+        </#if>
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -44,7 +49,7 @@
                             <td style="width: 100px">${value!""}</td>
                             <td>
                                 <a href="/userupdate?userid=${value!""}"><button class="layui-btn layui-btn-sm">编辑</button></a>
-                                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_user('${value}')">删除</button>
+                                <#if value!="admin"><button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delete_user('${value}')">删除</button></#if>
                             </td>
                         </tr>
                     </#list>

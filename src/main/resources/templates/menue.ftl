@@ -2,7 +2,7 @@
     <div class="layui-logo"><div class="layui-inline"><img src="${Session.logourl!""}" style="height: 20px;width: 20px;margin-bottom: 5px;margin-right: 5px;"></div>饿了么餐饮管理系统</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="/usermanager">用户管理</a></li>
+        <#if Session.accounttype=="admin"><li class="layui-nav-item"><a href="/usermanager">用户管理</a></li></#if>
         <li class="layui-nav-item"><a href="/tokenmanager">商家授权</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
