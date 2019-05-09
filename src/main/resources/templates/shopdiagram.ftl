@@ -23,8 +23,16 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend>店铺情况统计曲线</legend>
+                <legend>店铺情况统计图</legend>
             </fieldset>
+            <blockquote class="layui-elem-quote">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                    <legend>最近一月商品销售情况统计图</legend>
+                    <div id="can3" style="width:1300px;height:370px">
+                        你的浏览器不支持canvas，请升级浏览器
+                    </div>
+                </fieldset>
+            </blockquote>
             <blockquote class="layui-elem-quote">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                     <legend>近一周店铺订单情况统计曲线</legend>
@@ -187,6 +195,46 @@
 
     // 使用刚指定的配置项和数据显示图表。
     myChart1.setOption(option);
+</script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart2 = echarts.init(document.getElementById('can3'));
+    var tit = ['','','',''];
+    var tit1=['最近一月商品销售情况'];
+    var title=tit.concat(tit1);
+    // 指定图表的配置项和数据
+    var option2 = {
+        title : {
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ${namelist!""}
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:${productmap!""},
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option2);
 </script>
 </body>
 </html>

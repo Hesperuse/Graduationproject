@@ -26,4 +26,11 @@ public class UserService {
     public void deleteuser(String userid){
         userDao.deleteuser(userid);
     }
+
+    public void changeuser(String userid,String password){
+        User user=new User();
+        user.setUserid(userid);
+        user.setPassword(password);
+        userDao.save(user);
+    }
 }

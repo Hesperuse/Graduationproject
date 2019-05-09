@@ -2,10 +2,12 @@ package cn.edu.zucc.graduationproject.Controller;
 
 import cn.edu.zucc.graduationproject.ApiConfig.ElemeConfig;
 import cn.edu.zucc.graduationproject.Service.OrderService;
+import cn.edu.zucc.graduationproject.Service.ProductService;
 import cn.edu.zucc.graduationproject.Service.ShopMsgService;
 import cn.edu.zucc.graduationproject.util.ElmUtil;
 import cn.edu.zucc.graduationproject.util.GsonHelper;
 import eleme.openapi.sdk.api.entity.order.OrderList;
+import eleme.openapi.sdk.api.entity.product.OItem;
 import eleme.openapi.sdk.api.entity.shop.OShop;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import org.slf4j.Logger;
@@ -30,6 +32,8 @@ public class shopDiagramController {
     OrderService orderService;
     @Autowired
     ShopMsgService shopMsgService;
+    @Autowired
+    ProductService productService;
     @RequestMapping(value = "/shopdiagram")
     public String getshopDiagramdata(ModelMap map){
         OShop oShop=null;
@@ -78,6 +82,24 @@ public class shopDiagramController {
             String json= GsonHelper.toJson(totalorder);
             map.put("totalorder",json);
         }
+
+        List<OItem> productlist=productService.getallproduct();
+        List<Map<String,Object>> productmap=new ArrayList<>();
+        List<String> namelist=new ArrayList<>();
+        if (productlist!=null){
+            for (int i=0;i<productlist.size();i++){
+                Map<String,Object> promsg=new TreeMap<>();
+                promsg.put("value",productlist.get(i).getRecentPopularity());
+                promsg.put("name",productlist.get(i).getName());
+                namelist.add(productlist.get(i).getName());
+                productmap.add(promsg);
+            }
+            String json= GsonHelper.toJson(productmap);
+            map.put("productmap",json);
+            json=GsonHelper.toJson(namelist);
+            map.put("namelist",json);
+        }
+
         return "shopdiagram";
     }
 }

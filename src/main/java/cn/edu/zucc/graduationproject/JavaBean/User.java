@@ -21,11 +21,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUser() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUser(String userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 }

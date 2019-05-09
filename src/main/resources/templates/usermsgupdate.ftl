@@ -30,9 +30,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">用户账号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="user" lay-verify="title" readonly unselectable="on" autocomplete="off" placeholder="${userid!""}" class="layui-input">
+                                <#if (userid??)><input type="text" name="user" lay-verify="title" readonly  unselectable="on" autocomplete="off" placeholder="${userid!""}" class="layui-input"><#else ><input type="text" name="user" lay-verify="title" autocomplete="off" placeholder="请输入用户账号" class="layui-input"></#if>
                             </div>
-                            <p style="color: red;width: 1500px;padding-top: 8px;">用户账号不允许修改</p>
+                            <#if (userid??)>
+                                <p style="color: red;width: 1500px;padding-top: 8px;">用户账号不允许修改</p>
+                            </#if>
                         </div>
                     </div>
                     <#--<div class="layui-form-item">-->

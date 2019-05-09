@@ -35,7 +35,7 @@ public class UserController {
 
     @RequestMapping(value = "/userupdate/update")
     public String changeuser(String userid,String password,ModelMap map){
-        userService.updateuser(userid,password);
+        userService.changeuser(userid,password);
         return getAlluser(map);
     }
 
